@@ -2,6 +2,7 @@ package com.kickstart.postprocessor;
 
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.LAST_MODIFIED;
 
+import com.strategicgains.repoexpress.domain.Timestamped;
 import com.strategicgains.restexpress.Request;
 import com.strategicgains.restexpress.Response;
 import com.strategicgains.restexpress.pipeline.Postprocessor;
@@ -25,11 +26,11 @@ implements Postprocessor
 		if (!request.isMethodGet()) return;
 		if (!response.hasBody()) return;
 
-//		Object body = response.getBody();
-//
-//		if (!response.hasHeader(LAST_MODIFIED) && body.getClass().isAssignableFrom(Timestamped.class))
-//		{
-//			response.addHeader(LAST_MODIFIED, fmt.format(((Timestamped) body).getUpdatedAt()));
-//		}
+		Object body = response.getBody();
+
+		if (!response.hasHeader(LAST_MODIFIED) && body.getClass().isAssignableFrom(Timestamped.class))
+		{
+			response.addHeader(LAST_MODIFIED, fmt.format(((Timestamped) body).getUpdatedAt()));
+		}
 	}
 }

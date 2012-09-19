@@ -7,13 +7,19 @@ import org.jboss.netty.handler.codec.http.HttpMethod;
 
 import com.kickstart.postprocessor.LastModifiedHeaderPostprocessor;
 import com.kickstart.serialization.ResponseProcessors;
+import com.strategicgains.repoexpress.exception.DuplicateItemException;
+import com.strategicgains.repoexpress.exception.ItemNotFoundException;
 import com.strategicgains.restexpress.Format;
 import com.strategicgains.restexpress.Parameters;
 import com.strategicgains.restexpress.RestExpress;
+import com.strategicgains.restexpress.exception.BadRequestException;
+import com.strategicgains.restexpress.exception.ConflictException;
+import com.strategicgains.restexpress.exception.NotFoundException;
 import com.strategicgains.restexpress.pipeline.SimpleConsoleLogMessageObserver;
 import com.strategicgains.restexpress.plugin.CacheControlPlugin;
 import com.strategicgains.restexpress.plugin.RoutesMetadataPlugin;
 import com.strategicgains.restexpress.util.Environment;
+import com.strategicgains.syntaxe.ValidationException;
 
 public class Main
 {
@@ -32,7 +38,7 @@ public class Main
 
 		defineRoutes(config, server);
 
-		new RoutesMetadataPlugin()							// Support discoverability.
+		new RoutesMetadataPlugin()							// Support basic discoverability.
 			.register(server)
 			.parameter(Parameters.Cache.MAX_AGE, 86400);	// Cache for 1 day (24 hours).
 
@@ -67,10 +73,10 @@ public class Main
      */
     private static void mapExceptions(RestExpress server)
     {
-//    	server
-//    	.mapException(ItemNotFoundException.class, NotFoundException.class)
-//    	.mapException(DuplicateItemException.class, ConflictException.class)
-//    	.mapException(ValidationException.class, BadRequestException.class);
+    	server
+	    	.mapException(ItemNotFoundException.class, NotFoundException.class)
+	    	.mapException(DuplicateItemException.class, ConflictException.class)
+	    	.mapException(ValidationException.class, BadRequestException.class);
     }
 
 	private static Configuration loadEnvironment(String[] args)
