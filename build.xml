@@ -137,14 +137,14 @@
     		<zipfileset dir="${dir.config}" prefix="${project.name}/config" includes="**/*.properties"/>
 			<zipfileset dir="${dir.lib}" prefix="${project.name}/lib">
 				<exclude name="sources/**"/>
-				<include name="*.jar"/>
+				<include name="**/*.jar"/>
 			</zipfileset>
     	</zip>
     	<tar destfile="${dir.dist}/${project.name}.tgz" compression="gzip">
     		<tarfileset dir="${dir.dist}" prefix="${project.name}/bin" includes="${project.name}.jar"/>
     		<tarfileset dir="${dir.config}" prefix="${project.name}/config" includes="**/*.properties"/>
 			<tarfileset dir="${dir.lib}" prefix="${project.name}/lib">
-				<include name="*.jar"/>
+				<include name="**/*.jar"/>
 			</tarfileset>
     	</tar>
     </target>
