@@ -4,6 +4,8 @@
 	<classpathentry kind="src" path="test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-17-mongodb.jar"/>
+	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-17.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/DateAdapterJ-1.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.2.jar"/>
