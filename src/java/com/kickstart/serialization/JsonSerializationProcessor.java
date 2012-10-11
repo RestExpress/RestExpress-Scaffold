@@ -2,6 +2,8 @@ package com.kickstart.serialization;
 
 import java.util.Date;
 
+import org.bson.types.ObjectId;
+
 import com.google.gson.GsonBuilder;
 import com.strategicgains.restexpress.serialization.json.DefaultJsonProcessor;
 import com.strategicgains.restexpress.serialization.json.GsonTimestampSerializer;
@@ -17,7 +19,7 @@ extends DefaultJsonProcessor
 	    	new GsonBuilder()
 			.disableHtmlEscaping()
 			.registerTypeAdapter(Date.class, new GsonTimestampSerializer())
-//			.registerTypeAdapter(ObjectId.class, new GsonObjectIdSerializer())
+			.registerTypeAdapter(ObjectId.class, new GsonObjectIdSerializer())
 			.setDateFormat(DateAdapterConstants.TIMESTAMP_OUTPUT_FORMAT)
 			.create()
 	    );

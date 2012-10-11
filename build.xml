@@ -1,172 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build-all" name="RestExpress-Scaffold">
 
-	<property environment="env"/>
-	<property file="build.properties"/>
-	<property name="dir.src.java" value="${basedir}/src/java"/>
-	<property name="dir.src.test" value="${basedir}/test/java"/>
-	<property name="dir.build" value="${basedir}/build"/>
-	<property name="dir.compile" value="${dir.build}/classes/main"/>
-	<property name="dir.compile.test" value="${dir.build}/classes/test"/>
-	<property name="dir.lib" value="${basedir}/lib"/>
-	<property name="dir.config" value="${basedir}/config"/>
-	<property name="dir.dist" value="${basedir}/dist"/>
-	<property name="dir.test.results" value="${dir.build}/junit"/>
-	<property name="dir.test.report" value="${dir.test.results}/report"/>
-	<property name="project.name" value="${ant.project.name}-${version}"/>
-
-	<path id="lib.classpath">
-		<fileset dir="${dir.lib}">
-			<include name="**/*.jar"/>
-			<exclude name="**/sources/*"/>
-		</fileset>
-	</path>
-
-	<path id="compile.classpath">
-		<pathelement location="${dir.compile}"/>
-		<path refid="lib.classpath"/>
-    </path>
-
-	<path id="runtime.classpath">
-		<pathelement location="${dir.compile}"/>
-		<path refid="lib.classpath"/>
-    </path>
-
-	<path id="unit_test.classpath">
-		<path refid="runtime.classpath"/>
-		<pathelement location="${dir.compile.test}"/>
-    </path>
-
-    <target name="_init">
-		<mkdir dir="${dir.compile}"/>
-		<mkdir dir="${dir.compile.test}"/>
-		<mkdir dir="${dir.dist}"/>
-    	<mkdir dir="${dir.src.test}"/>
-    </target>
-
-	<target name="clean">
-		<delete dir="${dir.build}"/>
-		<delete dir="${dir.dist}"/>
-    </target>
-
-	<!-- ====================================================================== 
-          target: compile
-         ====================================================================== -->
-    <target name="compile"  depends="_init">
-		<javac destdir="${dir.compile}"
-			failonerror="yes"
-			fork="yes"
-    		source="${javac.source}"
-    		debug="${javac.debug}">
-			<classpath>
-				<path refid="compile.classpath"/>
-			</classpath>
-			<src>
-				<pathelement location="${dir.src.java}"/>
-			</src>
-		</javac>
-		<javac destdir="${dir.compile.test}"
-			failonerror="yes"
-			fork="yes"
-    		source="${javac.source}"
-    		debug="${javac.debug}">
-			<classpath>
-				<path refid="compile.classpath"/>
-			</classpath>
-			<src>
-				<pathelement location="${dir.src.test}"/>
-			</src>
-		</javac>
-    </target>
+	<import file="${basedir}/kickstart-build.xml"/>
 	
 	<!-- ====================================================================== 
-          target: build
+          target: package
          ====================================================================== -->
-	<target name="build" depends="compile, unit-test"/>
-
-	<!-- ====================================================================== 
-          target: build-all
-         ====================================================================== -->
-	<target name="build-all" depends="clean, compile, unit-test"/>
-
-	<!-- ====================================================================== 
-          target: unit-test
-         ====================================================================== -->
-    <target name="unit-test" depends="_init, compile" description="--> Execute unit tests">
-        <delete dir="${dir.test.results}"/>
-    	<mkdir dir="${dir.test.results}"/>
-    	<junit printsummary="true">
-    		<classpath refid="unit_test.classpath"/>
-    		<formatter type="xml" usefile="true"/>
-    		<batchtest errorproperty="test.failure" failureproperty="test.failure" fork="yes" todir="${dir.test.results}">
-    			<fileset dir="${dir.src.test}">
-    				<include name="**/*Test.java"/>
-    				<include name="**/*TestCase.java"/>
-    			</fileset>
-    		</batchtest>
-    	</junit>
-    	
-    	<mkdir dir="${dir.test.report}"/>
-    	<junitreport todir="${dir.test.report}">
-    		<report format="frames" todir="${dir.test.report}"/>
-    		<fileset dir="${dir.test.results}"/>
-    	</junitreport>
-    	
-    	<fail if="test.failure" message="Unit-Tests failed."/>
-    </target>
-
-	<!-- ====================================================================== 
-          target: release
-         ====================================================================== -->
-    <target name="release" depends="_init, compile" description="Release a distro">
-		<manifestclasspath property="jar.classpath" jarfile="${dir.dist}/${ant.project.name}deps.jar">
-			<classpath refid="lib.classpath" />
-		</manifestclasspath>
-		<jar destfile="${dir.dist}/${project.name}.jar">
-			<manifest>
-				<attribute name="Main-Class" value="com.kickstart.Main"/>
-				<attribute name="Class-Path" value="${jar.classpath}"/>
-			</manifest>
-    		<fileset dir="${dir.compile}"/>
-    	</jar>
-		<jar destfile="${dir.dist}/${project.name}-src.jar">
-    		<fileset dir="${dir.src.java}"/>
-    	</jar>
-    	<zip destfile="${dir.dist}/${project.name}.zip">
-    		<zipfileset dir="${dir.dist}" prefix="${project.name}/bin" includes="${project.name}.jar"/>
-    		<zipfileset dir="${dir.config}" prefix="${project.name}/config" includes="**/*.properties"/>
-			<zipfileset dir="${dir.lib}" prefix="${project.name}/lib">
-				<exclude name="sources/**"/>
-				<include name="**/*.jar"/>
-			</zipfileset>
+    <target name="package" depends="_init, compile" description="Package the kickstart application">
+		<buildnumber/>
+		<zip destfile="${dir.dist}/${ant.project.name}-${version}-${build.number}.zip">
+    		<zipfileset dir="${dir.src}" excludes=".gitignore" prefix="kickstart"/>
+    		<zipfileset dir="${dir.lib}" prefix="kickstart/lib"/>
+    		<zipfileset dir="${dir.dist}" includes="*.jar" excludes="*-src.jar" prefix="kickstart/lib"/>
     	</zip>
-    	<tar destfile="${dir.dist}/${project.name}.tgz" compression="gzip">
-    		<tarfileset dir="${dir.dist}" prefix="${project.name}/bin" includes="${project.name}.jar"/>
-    		<tarfileset dir="${dir.config}" prefix="${project.name}/config" includes="**/*.properties"/>
-			<tarfileset dir="${dir.lib}" prefix="${project.name}/lib">
-				<include name="**/*.jar"/>
-			</tarfileset>
-    	</tar>
-    </target>
-	
-	<!-- ====================================================================== 
-          target: run              
-         ====================================================================== -->
-    <target name="run" depends="_init, compile" description="Run the project from the command line">
-        <java fork="true" classname="com.kickstart.Main">
-			<jvmarg value="-XX:+UseConcMarkSweepGC"/>
-			<jvmarg value="-XX:+UseParNewGC"/>
-			<jvmarg value="-XX:CMSInitiatingOccupancyFraction=70"/>
-			<jvmarg value="-XX:NewSize=128m"/>
-			<jvmarg value="-XX:MaxNewSize=128m"/>
-			<jvmarg value="-Xms256m"/>
-			<jvmarg value="-Xmx256m"/>
-            <classpath>
-                    <path refid="runtime.classpath"/>
-            </classpath>
-            <!-- arg value="${runtime.environment}"/ -->
-        	<jvmarg value="-Dfile.encoding=UTF-8"/>
-        </java>
     </target>
 
 </project>
