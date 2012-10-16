@@ -31,6 +31,5 @@ public interface OrderRepository
 extends Repository<Order>
 {
 	public List<Order> readAll(QueryFilter filter, QueryRange range, QueryOrder order);
-
-	public int count(QueryFilter filter);
+	public long count(QueryFilter filter);
 }

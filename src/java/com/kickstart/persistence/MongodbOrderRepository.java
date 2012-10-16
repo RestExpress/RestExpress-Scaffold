@@ -41,12 +41,12 @@ implements OrderRepository
 	@Override
 	public List<Order> readAll(QueryFilter filter, QueryRange range, QueryOrder order)
 	{
-		return null;
+		return query(Order.class, range, filter, order);
 	}
 
 	@Override
-	public int count(QueryFilter filter)
+	public long count(QueryFilter filter)
 	{
-		return 0;
+		return count(Order.class, filter);
 	}
 }

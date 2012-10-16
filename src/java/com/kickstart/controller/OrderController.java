@@ -53,8 +53,7 @@ public class OrderController
 		QueryOrder order = QueryOrder.parseFrom(request);
 		QueryRange range = QueryRange.parseFrom(request, 20);
 		List<Order> results = orderService.readAll(filter, range, order);
-		int count = orderService.count(filter);
-		response.addRangeHeader(range, count);
+		response.addRangeHeader(range, orderService.count(filter));
 		return results;
 	}
 

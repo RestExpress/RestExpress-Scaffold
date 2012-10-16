@@ -72,7 +72,7 @@ public class OrderService
 		return results;
 	}
 
-	public int count(QueryFilter filter)
+	public long count(QueryFilter filter)
 	{
 		return orders.count(filter);
 
