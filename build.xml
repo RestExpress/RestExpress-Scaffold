@@ -2,16 +2,28 @@
 <project basedir="." default="build-all" name="RestExpress-Scaffold">
 
 	<import file="${basedir}/kickstart-build.xml"/>
-	
+
 	<!-- ====================================================================== 
           target: package
          ====================================================================== -->
     <target name="package" depends="_init, compile" description="Package the kickstart application">
 		<buildnumber/>
 		<zip destfile="${dir.dist}/${ant.project.name}-${version}-${build.number}.zip">
-    		<zipfileset dir="${dir.src}" excludes=".gitignore" prefix="kickstart"/>
+    		<zipfileset dir="${dir.src}" excludes=".gitignore" prefix="kickstart/src"/>
+    		<zipfileset dir="${dir.test}" excludes=".gitignore" prefix="kickstart/test"/>
     		<zipfileset dir="${dir.lib}" prefix="kickstart/lib"/>
     		<zipfileset dir="${dir.dist}" includes="*.jar" excludes="*-src.jar" prefix="kickstart/lib"/>
+    		<zipfileset dir="${dir.config}" prefix="kickstart/config"/>
+			<mappedresources>
+				<fileset dir="${basedir}">
+	    			<include name="kickstart-build.xml"/>
+				</fileset>
+				<globmapper from="kickstart-build.xml" to="kickstart/build.xml"/>
+			</mappedresources>
+
+			<zipfileset dir="${basedir}" prefix="kickstart">
+    			<include name="build.properties"/>
+    		</zipfileset>
     	</zip>
     </target>
 
