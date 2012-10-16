@@ -14,16 +14,17 @@
     		<zipfileset dir="${dir.lib}" prefix="kickstart/lib"/>
     		<zipfileset dir="${dir.dist}" includes="*.jar" excludes="*-src.jar" prefix="kickstart/lib"/>
     		<zipfileset dir="${dir.config}" prefix="kickstart/config"/>
+			<zipfileset dir="${basedir}" prefix="kickstart">
+    			<include name="build.properties"/>
+    			<include name=".project"/>
+				<include name=".classpath"/>
+    		</zipfileset>
 			<mappedresources>
 				<fileset dir="${basedir}">
 	    			<include name="kickstart-build.xml"/>
 				</fileset>
 				<globmapper from="kickstart-build.xml" to="kickstart/build.xml"/>
 			</mappedresources>
-
-			<zipfileset dir="${basedir}" prefix="kickstart">
-    			<include name="build.properties"/>
-    		</zipfileset>
     	</zip>
     </target>
 
