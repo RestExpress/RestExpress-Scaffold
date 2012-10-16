@@ -16,7 +16,7 @@
 	<classpathentry kind="lib" path="lib/netty-3.5.8.Final.jar"/>
 	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-19-mongodb.jar"/>
 	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-19.jar"/>
-	<classpathentry kind="lib" path="lib/RestExpress-0.8.0-build-99.jar"/>
 	<classpathentry kind="lib" path="lib/mongodb/mongo-2.9.1.jar"/>
+	<classpathentry kind="lib" path="lib/RestExpress-0.8.0-build-100.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
