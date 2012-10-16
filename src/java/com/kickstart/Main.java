@@ -38,10 +38,6 @@ public class Main
 
 		defineRoutes(config, server);
 
-//		new HealthCheckPlugin()
-//			.register(server)
-//			.addCheck(new MongodbHealthCheck());
-
 		new RoutesMetadataPlugin()							// Support basic discoverability.
 			.register(server)
 			.parameter(Parameters.Cache.MAX_AGE, 86400);	// Cache for 1 day (24 hours).
@@ -69,8 +65,8 @@ public class Main
 		// KickStartService methods via call to LinkUtils.asLinks().
 		server.uri("/orders/{orderId}.{format}", config.getOrderController())
 			.method(HttpMethod.GET, HttpMethod.PUT, HttpMethod.DELETE)
-			.name(Constants.KICKSTART_ORDER_URI)
-			.parameter(Parameters.Cache.MAX_AGE, 3600);		// Cache for 3600 seconds (1 hour).
+			.name(Constants.KICKSTART_ORDER_URI);
+//			.parameter(Parameters.Cache.MAX_AGE, 3600);		// Cache for 3600 seconds (1 hour).
 //			.flag(Flags.Cache.DONT_CACHE);					// Expressly deny cache-ability.
 	}
 
