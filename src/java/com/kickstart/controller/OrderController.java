@@ -9,6 +9,7 @@ import com.kickstart.domain.Order;
 import com.strategicgains.repoexpress.mongodb.MongodbEntityRepository;
 import com.strategicgains.restexpress.Request;
 import com.strategicgains.restexpress.Response;
+import com.strategicgains.restexpress.domain.XLink;
 import com.strategicgains.restexpress.exception.BadRequestException;
 import com.strategicgains.restexpress.query.QueryFilter;
 import com.strategicgains.restexpress.query.QueryOrder;
@@ -46,7 +47,14 @@ public class OrderController
 	public Order read(Request request, Response response)
 	{
 		String id = request.getUrlDecodedHeader(Constants.ORDER_ID_PARAMETER, "No Order ID supplied");
-		return orders.read(id);
+		Order result = orders.read(id);
+		
+		// Add 'self' link
+		String selfPattern = request.getNamedUrl(HttpMethod.GET, Constants.KICKSTART_ORDER_URI);
+		String selfUrl = XLinkUtils.asLocationUrl(selfPattern, Constants.ORDER_ID_PARAMETER, result.getId());
+		result.addLink(new XLink("self", selfUrl));
+
+		return result;
 	}
 
 	public List<Order> readAll(Request request, Response response)
@@ -57,6 +65,16 @@ public class OrderController
 		List<Order> results = orders.readAll(filter, range, order);
 		long count = orders.count(filter);
 		response.setCollectionResponse(range, results.size(), count);
+		
+		// Add 'self' links
+		String selfPattern = request.getNamedUrl(HttpMethod.GET, Constants.KICKSTART_ORDER_URI);
+		
+		for (Order result : results)
+		{
+			String selfUrl = XLinkUtils.asLocationUrl(selfPattern, Constants.ORDER_ID_PARAMETER, result.getId());
+			result.addLink(new XLink("self", selfUrl));
+		}
+		
 		return results;
 	}
 
