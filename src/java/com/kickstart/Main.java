@@ -57,7 +57,8 @@ public class Main
 		// and the GET HTTP method to KickStartController.readAll(Request, Response).
 		server.uri("/orders.{format}", config.getOrderController())
 			.method(HttpMethod.POST)
-			.action("readAll", HttpMethod.GET);
+			.action("readAll", HttpMethod.GET)
+			.name(Constants.KICKSTART_ORDER_COLLECTION_ROUTE);
 
 		// Maps /orders uri with required orderId and optional format identifier
 		// to the KickStartService.  Accepts only GET, PUT, DELETE HTTP methods.
@@ -65,7 +66,7 @@ public class Main
 		// KickStartService methods via call to LinkUtils.asLinks().
 		server.uri("/orders/{orderId}.{format}", config.getOrderController())
 			.method(HttpMethod.GET, HttpMethod.PUT, HttpMethod.DELETE)
-			.name(Constants.KICKSTART_ORDER_URI);
+			.name(Constants.KICKSTART_ORDER_ROUTE);
 //			.parameter(Parameters.Cache.MAX_AGE, 3600);		// Cache for 3600 seconds (1 hour).
 //			.flag(Flags.Cache.DONT_CACHE);					// Expressly deny cache-ability.
 	}
