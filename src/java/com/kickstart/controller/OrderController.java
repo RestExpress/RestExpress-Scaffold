@@ -6,7 +6,7 @@ import org.jboss.netty.handler.codec.http.HttpMethod;
 
 import com.kickstart.Constants;
 import com.kickstart.domain.Order;
-import com.kickstart.service.OrderService;
+import com.strategicgains.repoexpress.mongodb.MongodbEntityRepository;
 import com.strategicgains.restexpress.Request;
 import com.strategicgains.restexpress.Response;
 import com.strategicgains.restexpress.exception.BadRequestException;
@@ -14,28 +14,30 @@ import com.strategicgains.restexpress.query.QueryFilter;
 import com.strategicgains.restexpress.query.QueryOrder;
 import com.strategicgains.restexpress.query.QueryRange;
 import com.strategicgains.restexpress.util.XLinkUtils;
+import com.strategicgains.syntaxe.ValidationEngine;
 
 public class OrderController
 {
-	private OrderService orderService;
+	private MongodbEntityRepository<Order> orders;
 	
-	public OrderController(OrderService orderService)
+	public OrderController(MongodbEntityRepository<Order> orderRepository)
 	{
 		super();
-		this.orderService = orderService;
+		this.orders = orderRepository;
 	}
 
 	public String create(Request request, Response response)
 	{
 		Order order = request.getBodyAs(Order.class, "Order details not provided");
-		Order saved = orderService.create(order);
+		ValidationEngine.validateAndThrow(order);
+		Order saved = orders.create(order);
 
 		// Construct the response for create...
 		response.setResponseCreated();
 
 		// Include the Location header...
-		String locationUrl = request.getNamedUrl(HttpMethod.GET, Constants.KICKSTART_ORDER_URI);
-		response.addLocationHeader(XLinkUtils.asLocationUrl(saved.getId(), Constants.ORDER_ID_PARAMETER, locationUrl));
+		String locationPattern = request.getNamedUrl(HttpMethod.GET, Constants.KICKSTART_ORDER_URI);
+		response.addLocationHeader(XLinkUtils.asLocationUrl(locationPattern, Constants.ORDER_ID_PARAMETER, saved.getId()));
 
 		// Return the newly-created ID...
 		return saved.getId();
@@ -44,7 +46,7 @@ public class OrderController
 	public Order read(Request request, Response response)
 	{
 		String id = request.getUrlDecodedHeader(Constants.ORDER_ID_PARAMETER, "No Order ID supplied");
-		return orderService.read(id);
+		return orders.read(id);
 	}
 
 	public List<Order> readAll(Request request, Response response)
@@ -52,8 +54,9 @@ public class OrderController
 		QueryFilter filter = QueryFilter.parseFrom(request);
 		QueryOrder order = QueryOrder.parseFrom(request);
 		QueryRange range = QueryRange.parseFrom(request, 20);
-		List<Order> results = orderService.readAll(filter, range, order);
-		response.addRangeHeader(range, orderService.count(filter));
+		List<Order> results = orders.readAll(filter, range, order);
+		long count = orders.count(filter);
+		response.setCollectionResponse(range, results.size(), count);
 		return results;
 	}
 
@@ -66,15 +69,16 @@ public class OrderController
 		{
 			throw new BadRequestException("ID in URL and ID in Order must match");
 		}
-		
-		orderService.update(order);
+
+		ValidationEngine.validateAndThrow(order);
+		orders.update(order);
 		response.setResponseNoContent();
 	}
 
 	public void delete(Request request, Response response)
 	{
 		String id = request.getUrlDecodedHeader(Constants.ORDER_ID_PARAMETER, "No Order ID supplied");
-		orderService.delete(id);
+		orders.delete(id);
 		response.setResponseNoContent();
 	}
 }

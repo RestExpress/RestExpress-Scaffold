@@ -1,4 +1,4 @@
-package com.blogging.serialization;
+package com.kickstart.serialization;
 
 import org.bson.types.ObjectId;
 

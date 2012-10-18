@@ -6,11 +6,10 @@ import java.util.List;
 import java.util.Properties;
 
 import com.kickstart.controller.OrderController;
-import com.kickstart.persistence.MongodbOrderRepository;
-import com.kickstart.persistence.OrderRepository;
-import com.kickstart.service.OrderService;
+import com.kickstart.domain.Order;
 import com.mongodb.Mongo;
 import com.mongodb.ServerAddress;
+import com.strategicgains.repoexpress.mongodb.MongodbEntityRepository;
 import com.strategicgains.restexpress.Format;
 import com.strategicgains.restexpress.RestExpress;
 import com.strategicgains.restexpress.exception.ConfigurationException;
@@ -74,9 +73,8 @@ extends Environment
 			}
 		}
 
-		OrderRepository orderRepository = new MongodbOrderRepository(mongo, dbName);
-		OrderService orderService = new OrderService(orderRepository);
-		orderController = new OrderController(orderService);
+		MongodbEntityRepository<Order> orderRepository = new MongodbEntityRepository<Order>(mongo, dbName, Order.class);
+		orderController = new OrderController(orderRepository);
 	}
 
 	/**
