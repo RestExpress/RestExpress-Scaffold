@@ -25,10 +25,12 @@ extends Environment
 	private static final String MONGODB_DATABASE_PROPERTY = "mongodb.database";
 	private static final String MONGODB_USERNAME_PROPERTY = "mongodb.user";
 	private static final String MONGODB_PASSWORD_PROPERTY = "mongodb.password";
+	private static final String BASE_URL_PROPERTY = "base.url";
 
 	private int port;
 	private String name;
 	private String defaultFormat;
+	private String baseUrl;
 
 	private OrderController orderController;
 
@@ -38,6 +40,7 @@ extends Environment
 		this.name = p.getProperty(NAME_PROPERTY, RestExpress.DEFAULT_NAME);
 		this.port = Integer.parseInt(p.getProperty(PORT_PROPERTY, String.valueOf(RestExpress.DEFAULT_PORT)));
 		this.defaultFormat = p.getProperty(DEFAULT_FORMAT_PROPERTY, Format.JSON);
+		this.baseUrl = p.getProperty(BASE_URL_PROPERTY, "http://localhost:" + String.valueOf(port));
 		String dbName = p.getProperty(MONGODB_DATABASE_PROPERTY);
 
 		if (dbName == null)
@@ -130,5 +133,10 @@ extends Environment
 	public OrderController getOrderController()
 	{
 		return orderController;
+	}
+	
+	public String getBaseUrl()
+	{
+		return baseUrl;
 	}
 }

@@ -6,7 +6,7 @@ package com.kickstart.domain;
  * @since Oct 10, 2012
  */
 public class Order
-extends AbstractLinkedEntity
+extends AbstractLinkableEntity
 {
 	public Order()
 	{

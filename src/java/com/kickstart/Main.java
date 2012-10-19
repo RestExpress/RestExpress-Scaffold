@@ -28,6 +28,7 @@ public class Main
 		Configuration config = loadEnvironment(args);
 		RestExpress server = new RestExpress()
 		    .setName(config.getName())
+		    .setBaseUrl(config.getBaseUrl())
 		    .setDefaultFormat(config.getDefaultFormat())
 		    .putResponseProcessor(Format.JSON, ResponseProcessors.json())
 		    .putResponseProcessor(Format.XML, ResponseProcessors.xml())

@@ -1,7 +1,7 @@
 package com.kickstart.serialization;
 
-import com.kickstart.domain.LinkedCollectionWrapper;
 import com.kickstart.domain.Order;
+import com.strategicgains.restexpress.domain.LinkableCollection;
 import com.strategicgains.restexpress.serialization.xml.DefaultXmlProcessor;
 
 public class XmlSerializationProcessor
@@ -11,7 +11,7 @@ extends DefaultXmlProcessor
     {
 	    super();
 	    alias("order", Order.class);
-	    alias("collection", LinkedCollectionWrapper.class);
+	    alias("collection", LinkableCollection.class);
 //		alias("element_name", Element.class);
 //		alias("element_name", Element.class);
 //		alias("element_name", Element.class);

@@ -5,11 +5,11 @@ import java.util.List;
 import org.jboss.netty.handler.codec.http.HttpMethod;
 
 import com.kickstart.Constants;
-import com.kickstart.domain.LinkedCollectionWrapper;
 import com.kickstart.domain.Order;
 import com.strategicgains.repoexpress.mongodb.MongodbEntityRepository;
 import com.strategicgains.restexpress.Request;
 import com.strategicgains.restexpress.Response;
+import com.strategicgains.restexpress.domain.LinkableCollection;
 import com.strategicgains.restexpress.domain.XLink;
 import com.strategicgains.restexpress.exception.BadRequestException;
 import com.strategicgains.restexpress.query.QueryFilter;
@@ -58,7 +58,7 @@ public class OrderController
 		return result;
 	}
 
-	public LinkedCollectionWrapper<Order> readAll(Request request, Response response)
+	public LinkableCollection<Order> readAll(Request request, Response response)
 	{
 		QueryFilter filter = QueryFilter.parseFrom(request);
 		QueryOrder order = QueryOrder.parseFrom(request);
@@ -78,8 +78,8 @@ public class OrderController
 
 		String selfUrl = request.getNamedUrl(HttpMethod.GET, Constants.KICKSTART_ORDER_COLLECTION_ROUTE);
 //		String selfUrl = XLinkUtils.asLocationUrl(selfPattern, Constants.ORDER_ID_PARAMETER, orderId);
-		LinkedCollectionWrapper<Order> wrapper = new LinkedCollectionWrapper<Order>(results)
-			.addLink(new XLink("self", selfUrl));
+		LinkableCollection<Order> wrapper = new LinkableCollection<Order>(results);
+		wrapper.addLink(new XLink("self", selfUrl));
 		return wrapper;
 	}
 
