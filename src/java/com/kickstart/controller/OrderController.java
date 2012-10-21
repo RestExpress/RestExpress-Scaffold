@@ -6,16 +6,16 @@ import org.jboss.netty.handler.codec.http.HttpMethod;
 
 import com.kickstart.Constants;
 import com.kickstart.domain.Order;
+import com.strategicgains.hyperexpress.domain.Link;
+import com.strategicgains.hyperexpress.domain.LinkableCollection;
+import com.strategicgains.hyperexpress.util.LinkUtils;
 import com.strategicgains.repoexpress.mongodb.MongodbEntityRepository;
 import com.strategicgains.restexpress.Request;
 import com.strategicgains.restexpress.Response;
-import com.strategicgains.restexpress.domain.LinkableCollection;
-import com.strategicgains.restexpress.domain.XLink;
 import com.strategicgains.restexpress.exception.BadRequestException;
 import com.strategicgains.restexpress.query.QueryFilter;
 import com.strategicgains.restexpress.query.QueryOrder;
 import com.strategicgains.restexpress.query.QueryRange;
-import com.strategicgains.restexpress.util.XLinkUtils;
 import com.strategicgains.syntaxe.ValidationEngine;
 
 public class OrderController
@@ -39,7 +39,7 @@ public class OrderController
 
 		// Include the Location header...
 		String locationPattern = request.getNamedUrl(HttpMethod.GET, Constants.KICKSTART_ORDER_ROUTE);
-		response.addLocationHeader(XLinkUtils.asLocationUrl(locationPattern, Constants.ORDER_ID_PARAMETER, saved.getId()));
+		response.addLocationHeader(LinkUtils.formatUrl(locationPattern, Constants.ORDER_ID_PARAMETER, saved.getId()));
 
 		// Return the newly-created ID...
 		return saved.getId();
@@ -52,8 +52,8 @@ public class OrderController
 		
 		// Add 'self' link
 		String selfPattern = request.getNamedUrl(HttpMethod.GET, Constants.KICKSTART_ORDER_ROUTE);
-		String selfUrl = XLinkUtils.asLocationUrl(selfPattern, Constants.ORDER_ID_PARAMETER, result.getId());
-		result.addLink(new XLink("self", selfUrl));
+		String selfUrl = LinkUtils.formatUrl(selfPattern, Constants.ORDER_ID_PARAMETER, result.getId());
+		result.addLink(new Link("self", selfUrl));
 
 		return result;
 	}
@@ -72,14 +72,14 @@ public class OrderController
 
 		for (Order result : results)
 		{
-			String selfUrl = XLinkUtils.asLocationUrl(orderSelfPattern, Constants.ORDER_ID_PARAMETER, result.getId());
-			result.addLink(new XLink("self", selfUrl));
+			String selfUrl = LinkUtils.formatUrl(orderSelfPattern, Constants.ORDER_ID_PARAMETER, result.getId());
+			result.addLink(new Link("self", selfUrl));
 		}
 
 		String selfUrl = request.getNamedUrl(HttpMethod.GET, Constants.KICKSTART_ORDER_COLLECTION_ROUTE);
 //		String selfUrl = XLinkUtils.asLocationUrl(selfPattern, Constants.ORDER_ID_PARAMETER, orderId);
 		LinkableCollection<Order> wrapper = new LinkableCollection<Order>(results);
-		wrapper.addLink(new XLink("self", selfUrl));
+		wrapper.addLink(new Link("self", selfUrl));
 		return wrapper;
 	}
 

@@ -18,6 +18,7 @@
 	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-23-mongodb.jar"/>
 	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-23.jar"/>
 	<classpathentry kind="lib" path="lib/domain-eventing-0.4.0-22-src.jar"/>
-	<classpathentry kind="lib" path="lib/RestExpress-0.8.0-build-107.jar"/>
+	<classpathentry kind="lib" path="lib/HyperExpress-0.8.0-build-4.jar"/>
+	<classpathentry kind="lib" path="lib/RestExpress-0.8.0-build-108.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
