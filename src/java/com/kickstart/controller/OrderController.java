@@ -6,6 +6,7 @@ import org.jboss.netty.handler.codec.http.HttpMethod;
 
 import com.kickstart.Constants;
 import com.kickstart.domain.Order;
+import com.strategicgains.hyperexpress.RelTypes;
 import com.strategicgains.hyperexpress.domain.Link;
 import com.strategicgains.hyperexpress.domain.LinkableCollection;
 import com.strategicgains.hyperexpress.util.LinkUtils;
@@ -53,7 +54,7 @@ public class OrderController
 		// Add 'self' link
 		String selfPattern = request.getNamedUrl(HttpMethod.GET, Constants.KICKSTART_ORDER_ROUTE);
 		String selfUrl = LinkUtils.formatUrl(selfPattern, Constants.ORDER_ID_PARAMETER, result.getId());
-		result.addLink(new Link("self", selfUrl));
+		result.addLink(new Link(RelTypes.SELF, selfUrl));
 
 		return result;
 	}
@@ -73,13 +74,13 @@ public class OrderController
 		for (Order result : results)
 		{
 			String selfUrl = LinkUtils.formatUrl(orderSelfPattern, Constants.ORDER_ID_PARAMETER, result.getId());
-			result.addLink(new Link("self", selfUrl));
+			result.addLink(new Link(RelTypes.SELF, selfUrl));
 		}
 
 		String selfUrl = request.getNamedUrl(HttpMethod.GET, Constants.KICKSTART_ORDER_COLLECTION_ROUTE);
 //		String selfUrl = XLinkUtils.asLocationUrl(selfPattern, Constants.ORDER_ID_PARAMETER, orderId);
 		LinkableCollection<Order> wrapper = new LinkableCollection<Order>(results);
-		wrapper.addLink(new Link("self", selfUrl));
+		wrapper.addLink(new Link(RelTypes.SELF, selfUrl));
 		return wrapper;
 	}
 
