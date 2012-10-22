@@ -32,9 +32,9 @@ public class Main
 		    .setDefaultFormat(config.getDefaultFormat())
 		    .putResponseProcessor(Format.JSON, ResponseProcessors.json())
 		    .putResponseProcessor(Format.XML, ResponseProcessors.xml())
-//		    .putResponseProcessor(Format.WRAPPED_JSON, ResponseProcessors.wrappedJson())
-//		    .putResponseProcessor(Format.WRAPPED_XML, ResponseProcessors.wrappedXml())
-//		    .addPostprocessor(new LastModifiedHeaderPostprocessor())
+		    .putResponseProcessor(Format.WRAPPED_JSON, ResponseProcessors.wrappedJson())
+		    .putResponseProcessor(Format.WRAPPED_XML, ResponseProcessors.wrappedXml())
+		    .addPostprocessor(new LastModifiedHeaderPostprocessor())
 		    .addMessageObserver(new SimpleConsoleLogMessageObserver());
 
 		defineRoutes(config, server);
@@ -43,8 +43,8 @@ public class Main
 			.register(server)
 			.parameter(Parameters.Cache.MAX_AGE, 86400);	// Cache for 1 day (24 hours).
 
-//		new CacheControlPlugin()							// Support caching headers.
-//			.register(server);
+		new CacheControlPlugin()							// Support caching headers.
+			.register(server);
 
 		mapExceptions(server);
 		server.bind(config.getPort());
