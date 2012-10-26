@@ -76,7 +76,8 @@ extends Environment
 			}
 		}
 
-		MongodbEntityRepository<Order> orderRepository = new MongodbEntityRepository<Order>(mongo, dbName, Order.class);
+		@SuppressWarnings("unchecked")
+        MongodbEntityRepository<Order> orderRepository = new MongodbEntityRepository<Order>(mongo, dbName, Order.class);
 		orderController = new OrderController(orderRepository);
 	}
 
