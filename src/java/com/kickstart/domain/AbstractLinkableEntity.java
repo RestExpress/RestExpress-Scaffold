@@ -1,6 +1,7 @@
 package com.kickstart.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,7 +38,16 @@ implements Linkable
 		{
 			links = new ArrayList<Link>();
 		}
-		
-		links.add(link);
+
+		links.add(new Link(link));
+	}
+	
+	@Override
+	public void addAllLinks(Collection<Link> links)
+	{
+		for (Link link : links)
+		{
+			addLink(link);
+		}
 	}
 }
