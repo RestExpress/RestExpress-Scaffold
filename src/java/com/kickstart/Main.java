@@ -16,8 +16,8 @@ import com.strategicgains.restexpress.exception.BadRequestException;
 import com.strategicgains.restexpress.exception.ConflictException;
 import com.strategicgains.restexpress.exception.NotFoundException;
 import com.strategicgains.restexpress.pipeline.SimpleConsoleLogMessageObserver;
-import com.strategicgains.restexpress.plugin.CacheControlPlugin;
-import com.strategicgains.restexpress.plugin.RoutesMetadataPlugin;
+import com.strategicgains.restexpress.plugin.cache.CacheControlPlugin;
+import com.strategicgains.restexpress.plugin.route.RoutesMetadataPlugin;
 import com.strategicgains.restexpress.util.Environment;
 import com.strategicgains.syntaxe.ValidationException;
 
