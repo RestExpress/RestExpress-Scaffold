@@ -59,6 +59,7 @@
 			failonerror="yes"
 			fork="yes"
     		source="${javac.source}"
+    		target="${javac.target}"
     		debug="${javac.debug}">
 			<classpath>
 				<path refid="compile.classpath"/>
@@ -71,6 +72,7 @@
 			failonerror="yes"
 			fork="yes"
     		source="${javac.source}"
+    		target="${javac.target}"
     		debug="${javac.debug}">
 			<classpath>
 				<path refid="compile.classpath"/>
