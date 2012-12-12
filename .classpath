@@ -20,6 +20,6 @@
 	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-26.jar"/>
 	<classpathentry kind="lib" path="lib/Syntaxe-0.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/PluginExpress-0.1.0.jar"/>
-	<classpathentry kind="lib" path="lib/RestExpress-0.8.0-build-113.jar"/>
+	<classpathentry kind="lib" path="lib/RestExpress-0.8.0-build-115.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
