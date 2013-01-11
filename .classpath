@@ -5,21 +5,21 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/xpp3_min-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="lib/mongodb/morphia-0.99.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/domain-eventing-0.4.0-22.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/DateAdapterJ-1.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/xmlpull-1.1.3.1.jar"/>
 	<classpathentry kind="lib" path="lib/xstream-1.4.2.jar"/>
-	<classpathentry kind="lib" path="lib/AtomExpress-0.1.0-4.jar"/>
 	<classpathentry kind="lib" path="lib/mongodb/mongo-2.9.1.jar"/>
-	<classpathentry kind="lib" path="lib/domain-eventing-0.4.0-22-hazelcast.jar"/>
-	<classpathentry kind="lib" path="lib/HyperExpress-0.8.0-build-11.jar"/>
 	<classpathentry kind="lib" path="lib/netty-3.5.10.Final.jar"/>
-	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-26-mongodb.jar"/>
-	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-26.jar"/>
-	<classpathentry kind="lib" path="lib/Syntaxe-0.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/PluginExpress-0.1.0.jar"/>
-	<classpathentry kind="lib" path="lib/RestExpress-0.8.0-build-115.jar"/>
+	<classpathentry kind="lib" path="lib/AtomExpress-0.1.0-5.jar"/>
+	<classpathentry kind="lib" path="lib/domain-eventing-0.4.0-25-hazelcast.jar"/>
+	<classpathentry kind="lib" path="lib/domain-eventing-0.4.0-25.jar"/>
+	<classpathentry kind="lib" path="lib/HyperExpress-0.8.0-build-12.jar"/>
+	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-27-mongodb.jar"/>
+	<classpathentry kind="lib" path="lib/RepoExpress-0.3.0-27.jar"/>
+	<classpathentry kind="lib" path="lib/RestExpress-0.8.0-build-117.jar"/>
+	<classpathentry kind="lib" path="lib/Syntaxe-0.4.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
