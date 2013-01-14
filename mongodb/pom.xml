@@ -4,8 +4,8 @@
 	<name>RestExpress-MongoDB-Scaffold</name>
 	<description>Internet Scale and Performance RESTful Services in Java</description>
 	<url>https://github.com/RestExpress/RestExpress</url>
-	<groupId>com.strategicgains.restexpress</groupId>
-	<artifactId>scaffolding-mongodb</artifactId>
+	<groupId>com.strategicgains.archetype</groupId>
+	<artifactId>restexpress-scaffolding-mongodb</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
