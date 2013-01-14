@@ -13,10 +13,13 @@ import com.strategicgains.hyperexpress.util.LinkUtils;
 import com.strategicgains.repoexpress.mongodb.MongodbEntityRepository;
 import com.strategicgains.restexpress.Request;
 import com.strategicgains.restexpress.Response;
+import com.strategicgains.restexpress.common.query.QueryFilter;
+import com.strategicgains.restexpress.common.query.QueryOrder;
+import com.strategicgains.restexpress.common.query.QueryRange;
 import com.strategicgains.restexpress.exception.BadRequestException;
-import com.strategicgains.restexpress.query.QueryFilter;
-import com.strategicgains.restexpress.query.QueryOrder;
-import com.strategicgains.restexpress.query.QueryRange;
+import com.strategicgains.restexpress.query.QueryFilters;
+import com.strategicgains.restexpress.query.QueryOrders;
+import com.strategicgains.restexpress.query.QueryRanges;
 import com.strategicgains.syntaxe.ValidationEngine;
 
 public class OrderController
@@ -61,9 +64,9 @@ public class OrderController
 
 	public LinkableCollection<Order> readAll(Request request, Response response)
 	{
-		QueryFilter filter = QueryFilter.parseFrom(request);
-		QueryOrder order = QueryOrder.parseFrom(request);
-		QueryRange range = QueryRange.parseFrom(request, 20);
+		QueryFilter filter = QueryFilters.parseFrom(request);
+		QueryOrder order = QueryOrders.parseFrom(request);
+		QueryRange range = QueryRanges.parseFrom(request, 20);
 		List<Order> results = orders.readAll(filter, range, order);
 		long count = orders.count(filter);
 		response.setCollectionResponse(range, results.size(), count);
