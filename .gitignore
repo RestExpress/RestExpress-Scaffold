@@ -3,3 +3,7 @@ build/
 .DS_Store
 .metadata/
 dist/
+.project
+.classpath
+.settings
+target/

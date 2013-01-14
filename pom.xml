@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>RestExpress-MongoDB-Scaffold</name>
+	<description>Internet Scale and Performance RESTful Services in Java</description>
+	<url>https://github.com/RestExpress/RestExpress</url>
+	<groupId>com.strategicgains.restexpress</groupId>
+	<artifactId>scaffolding-mongodb</artifactId>
+	<version>0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.strategicgains</groupId>
+			<artifactId>RestExpress</artifactId>
+			<version>0.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strategicgains.repoexpress</groupId>
+			<artifactId>repoexpress-mongodb</artifactId>
+			<version>0.3.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strategicgains</groupId>
+			<artifactId>PluginExpress</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strategicgains</groupId>
+			<artifactId>Syntaxe</artifactId>
+			<version>0.4.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strategicgains.domain-eventing</groupId>
+			<artifactId>domain-eventing-core</artifactId>
+			<version>0.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<type>jar</type>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
+	<issueManagement>
+		<system>GitHub.com</system>
+		<url>https://github.com/RestExpress/RestExpress/issues</url>
+	</issueManagement>
+
+	<scm>
+		<url>git@github.com:RestExpress/RestExpress-Scaffold.git</url>
+		<connection>scm:git:git@github.com:RestExpress/RestExpress-Scaffold.git</connection>
+		<developerConnection>scm:git:git@github.com:RestExpress/RestExpress-Scaffold.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<build>
+		<defaultGoal>compile</defaultGoal>
+		<sourceDirectory>src/java</sourceDirectory>
+		<testSourceDirectory>test/java</testSourceDirectory>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>tfredrich</id>
+			<name>Todd Fredrich</name>
+			<email>tfredrich@gmail.com</email>
+		</developer>
+	</developers>
+</project>
