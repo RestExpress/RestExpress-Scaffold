@@ -4,21 +4,21 @@ import java.util.Properties;
 
 import com.strategicgains.restexpress.Format;
 import com.strategicgains.restexpress.RestExpress;
-import com.strategicgains.restexpress.scaffold.minimal.controller.RouteController;
+import com.strategicgains.restexpress.scaffold.minimal.controller.SampleController;
 import com.strategicgains.restexpress.util.Environment;
 
 public class Configuration
 extends Environment
 {
 	private static final String PORT_PROPERTY = "port";
-	private static final String DEFAULT_FORMAT_PROPERTY = "default.Format";
+	private static final String DEFAULT_FORMAT_PROPERTY = "default.format";
 	private static final String BASE_URL_PROPERTY = "base.url";
 
 	private int port;
 	private String defaultFormat;
 	private String baseUrl;
 
-	private RouteController routeController;
+	private SampleController sampleController;
 
 	@Override
 	protected void fillValues(Properties p)
@@ -31,7 +31,7 @@ extends Environment
 
 	private void initialize()
 	{
-		routeController = new RouteController();
+		sampleController = new SampleController();
 	}
 
 	public String getDefaultFormat()
@@ -43,14 +43,14 @@ extends Environment
 	{
 		return port;
 	}
-
-	public RouteController getRouteController()
-	{
-		return routeController;
-	}
 	
 	public String getBaseUrl()
 	{
 		return baseUrl;
+	}
+
+	public SampleController getSampleController()
+	{
+		return sampleController;
 	}
 }

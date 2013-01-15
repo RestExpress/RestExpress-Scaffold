@@ -3,9 +3,9 @@ package com.strategicgains.restexpress.scaffold.minimal.controller;
 import com.strategicgains.restexpress.Request;
 import com.strategicgains.restexpress.Response;
 
-public class RouteController
+public class SampleController
 {
-	public RouteController()
+	public SampleController()
 	{
 		super();
 	}
@@ -21,6 +21,12 @@ public class RouteController
 		//TODO: Your 'read' logic here...
 		return null;
 	}
+
+//	public LinkableCollection<Object> readAll(Request request, Response response)
+//	{
+//		//TODO: Your 'readAll' logic here...
+//		return null;
+//	}
 
 	public void update(Request request, Response response)
 	{

@@ -1,4 +1,4 @@
-package com.strategicgains.restexpress.scaffold.minimal;
+package com.strategicgains.restexpress.scaffold.mongodb;
 
 import org.jboss.netty.handler.codec.http.HttpMethod;
 
@@ -13,11 +13,12 @@ public abstract class Routes
 			.method(HttpMethod.GET, HttpMethod.PUT, HttpMethod.DELETE)
 			.name(Constants.Routes.SINGLE_SAMPLE);
 
-//		server.uri("/your/collection/route/here", config.getSampleController())
-//			.action("readAll", HttpMethod.GET)
-//			.method(HttpMethod.POST)
-//			.name(Constants.Routes.SAMPLE_COLLECTION);
-// or...
+		server.uri("/your/collection/route/here", config.getSampleController())
+			.action("readAll", HttpMethod.GET)
+			.method(HttpMethod.POST)
+			.name(Constants.Routes.SAMPLE_COLLECTION);
+
+// or REGEX matching routes...
 //		server.regex("/some.regex", config.getRouteController());
     }
 }

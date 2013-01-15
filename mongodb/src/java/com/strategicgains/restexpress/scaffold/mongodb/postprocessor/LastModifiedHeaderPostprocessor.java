@@ -1,4 +1,4 @@
-package com.kickstart.postprocessor;
+package com.strategicgains.restexpress.scaffold.mongodb.postprocessor;
 
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.LAST_MODIFIED;
 

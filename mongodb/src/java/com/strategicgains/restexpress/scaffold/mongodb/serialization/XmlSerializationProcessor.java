@@ -1,6 +1,6 @@
-package com.kickstart.serialization;
+package com.strategicgains.restexpress.scaffold.mongodb.serialization;
 
-import com.kickstart.domain.Order;
+import com.strategicgains.restexpress.scaffold.mongodb.domain.Sample;
 import com.strategicgains.restexpress.serialization.xml.DefaultXmlProcessor;
 
 public class XmlSerializationProcessor
@@ -9,7 +9,7 @@ extends DefaultXmlProcessor
 	public XmlSerializationProcessor()
     {
 	    super();
-	    alias("order", Order.class);
+	    alias("sample", Sample.class);
 //		alias("element_name", Element.class);
 //		alias("element_name", Element.class);
 //		alias("element_name", Element.class);

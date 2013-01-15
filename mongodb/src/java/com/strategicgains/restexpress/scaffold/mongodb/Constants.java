@@ -1,4 +1,4 @@
-package com.strategicgains.restexpress.scaffold.minimal;
+package com.strategicgains.restexpress.scaffold.mongodb;
 
 public class Constants
 {

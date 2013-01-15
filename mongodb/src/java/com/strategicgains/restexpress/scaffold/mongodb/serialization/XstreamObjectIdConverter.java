@@ -1,4 +1,4 @@
-package com.kickstart.serialization;
+package com.strategicgains.restexpress.scaffold.mongodb.serialization;
 
 import org.bson.types.ObjectId;
 

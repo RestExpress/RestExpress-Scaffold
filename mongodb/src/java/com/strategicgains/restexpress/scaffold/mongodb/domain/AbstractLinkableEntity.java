@@ -1,4 +1,4 @@
-package com.kickstart.domain;
+package com.strategicgains.restexpress.scaffold.mongodb.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;

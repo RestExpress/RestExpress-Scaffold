@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>RestExpress-Scaffold-Parent</name>
+	<description>Example RestExpress Projects</description>
+	<url>https://github.com/RestExpress/RestExpress-Scaffold</url>
+	<groupId>com.strategicgains.archetype</groupId>
+	<artifactId>restexpress-scaffold-parent</artifactId>
+	<version>0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
+	<modules>
+		<module>minimal</module>
+		<module>mongodb</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.strategicgains</groupId>
+			<artifactId>RestExpress</artifactId>
+			<version>0.8.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strategicgains</groupId>
+			<artifactId>PluginExpress</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strategicgains</groupId>
+			<artifactId>Syntaxe</artifactId>
+			<version>0.4.3</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<type>jar</type>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<descriptors>
+						<descriptor>zip-with-dependencies.xml</descriptor>
+					</descriptors>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<issueManagement>
+		<system>GitHub.com</system>
+		<url>https://github.com/RestExpress/RepoExpress/issues</url>
+	</issueManagement>
+
+	<scm>
+		<url>git@github.com:RestExpress/RestExpress-Scaffold.git</url>
+		<connection>scm:git:git@github.com:RestExpress/RestExpress-Scaffold.git</connection>
+		<developerConnection>scm:git:git@github.com:RestExpress/RestExpress-Scaffold.git</developerConnection>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>tfredrich</id>
+			<name>Todd Fredrich</name>
+			<email>tfredrich@gmail.com</email>
+		</developer>
+	</developers>
+</project>

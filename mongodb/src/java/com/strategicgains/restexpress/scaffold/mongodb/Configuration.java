@@ -1,26 +1,25 @@
-package com.kickstart;
+package com.strategicgains.restexpress.scaffold.mongodb;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.kickstart.controller.OrderController;
-import com.kickstart.domain.Order;
 import com.mongodb.Mongo;
 import com.mongodb.ServerAddress;
 import com.strategicgains.repoexpress.mongodb.MongodbEntityRepository;
 import com.strategicgains.restexpress.Format;
 import com.strategicgains.restexpress.RestExpress;
 import com.strategicgains.restexpress.exception.ConfigurationException;
+import com.strategicgains.restexpress.scaffold.mongodb.controller.SampleController;
+import com.strategicgains.restexpress.scaffold.mongodb.domain.Sample;
 import com.strategicgains.restexpress.util.Environment;
 
 public class Configuration
 extends Environment
 {
-	private static final String NAME_PROPERTY = "name";
 	private static final String PORT_PROPERTY = "port";
-	private static final String DEFAULT_FORMAT_PROPERTY = "default.Format";
+	private static final String DEFAULT_FORMAT_PROPERTY = "default.format";
 	private static final String MONGODB_BOOTSTRAPS_PROPERTY = "mongodb.bootstraps";
 	private static final String MONGODB_DATABASE_PROPERTY = "mongodb.database";
 	private static final String MONGODB_USERNAME_PROPERTY = "mongodb.user";
@@ -28,16 +27,14 @@ extends Environment
 	private static final String BASE_URL_PROPERTY = "base.url";
 
 	private int port;
-	private String name;
 	private String defaultFormat;
 	private String baseUrl;
 
-	private OrderController orderController;
+	private SampleController sampleController;
 
 	@Override
 	protected void fillValues(Properties p)
 	{
-		this.name = p.getProperty(NAME_PROPERTY, RestExpress.DEFAULT_NAME);
 		this.port = Integer.parseInt(p.getProperty(PORT_PROPERTY, String.valueOf(RestExpress.DEFAULT_PORT)));
 		this.defaultFormat = p.getProperty(DEFAULT_FORMAT_PROPERTY, Format.JSON);
 		this.baseUrl = p.getProperty(BASE_URL_PROPERTY, "http://localhost:" + String.valueOf(port));
@@ -77,8 +74,8 @@ extends Environment
 		}
 
 		@SuppressWarnings("unchecked")
-        MongodbEntityRepository<Order> orderRepository = new MongodbEntityRepository<Order>(mongo, dbName, Order.class);
-		orderController = new OrderController(orderRepository);
+        MongodbEntityRepository<Sample> orderRepository = new MongodbEntityRepository<Sample>(mongo, dbName, Sample.class);
+		sampleController = new SampleController(orderRepository);
 	}
 
 	/**
@@ -125,19 +122,14 @@ extends Environment
 	{
 		return port;
 	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public OrderController getOrderController()
-	{
-		return orderController;
-	}
 	
 	public String getBaseUrl()
 	{
 		return baseUrl;
+	}
+
+	public SampleController getSampleController()
+	{
+		return sampleController;
 	}
 }

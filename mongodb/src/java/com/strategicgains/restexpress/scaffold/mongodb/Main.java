@@ -1,12 +1,8 @@
-package com.kickstart;
+package com.strategicgains.restexpress.scaffold.mongodb;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.jboss.netty.handler.codec.http.HttpMethod;
-
-import com.kickstart.postprocessor.LastModifiedHeaderPostprocessor;
-import com.kickstart.serialization.ResponseProcessors;
 import com.strategicgains.repoexpress.exception.DuplicateItemException;
 import com.strategicgains.repoexpress.exception.ItemNotFoundException;
 import com.strategicgains.restexpress.Format;
@@ -18,16 +14,20 @@ import com.strategicgains.restexpress.exception.NotFoundException;
 import com.strategicgains.restexpress.pipeline.SimpleConsoleLogMessageObserver;
 import com.strategicgains.restexpress.plugin.cache.CacheControlPlugin;
 import com.strategicgains.restexpress.plugin.route.RoutesMetadataPlugin;
+import com.strategicgains.restexpress.scaffold.mongodb.postprocessor.LastModifiedHeaderPostprocessor;
+import com.strategicgains.restexpress.scaffold.mongodb.serialization.ResponseProcessors;
 import com.strategicgains.restexpress.util.Environment;
 import com.strategicgains.syntaxe.ValidationException;
 
 public class Main
 {
+	private static final String SERVICE_NAME = "TODO: Enter Service Name";
+
 	public static void main(String[] args) throws Exception
 	{
 		Configuration config = loadEnvironment(args);
 		RestExpress server = new RestExpress()
-		    .setName(config.getName())
+		    .setName(SERVICE_NAME)
 		    .setBaseUrl(config.getBaseUrl())
 		    .setDefaultFormat(config.getDefaultFormat())
 		    .putResponseProcessor(Format.JSON, ResponseProcessors.json())
@@ -37,7 +37,7 @@ public class Main
 		    .addPostprocessor(new LastModifiedHeaderPostprocessor())
 		    .addMessageObserver(new SimpleConsoleLogMessageObserver());
 
-		defineRoutes(config, server);
+		Routes.define(config, server);
 
 		new RoutesMetadataPlugin()							// Support basic discoverability.
 			.register(server)
@@ -49,27 +49,6 @@ public class Main
 		mapExceptions(server);
 		server.bind(config.getPort());
 		server.awaitShutdown();
-	}
-
-	private static void defineRoutes(Configuration config, RestExpress server)
-	{
-		// Maps /orders uri with optional format ('json' or 'xml'), accepting
-		// POST HTTP method to KickStartController.create(Request, Response)
-		// and the GET HTTP method to KickStartController.readAll(Request, Response).
-		server.uri("/orders.{format}", config.getOrderController())
-			.method(HttpMethod.POST)
-			.action("readAll", HttpMethod.GET)
-			.name(Constants.KICKSTART_ORDER_COLLECTION_ROUTE);
-
-		// Maps /orders uri with required orderId and optional format identifier
-		// to the KickStartService.  Accepts only GET, PUT, DELETE HTTP methods.
-		// Names this route to allow returning links from read resources in
-		// KickStartService methods via call to LinkUtils.asLinks().
-		server.uri("/orders/{orderId}.{format}", config.getOrderController())
-			.method(HttpMethod.GET, HttpMethod.PUT, HttpMethod.DELETE)
-			.name(Constants.KICKSTART_ORDER_ROUTE);
-//			.parameter(Parameters.Cache.MAX_AGE, 3600);		// Cache for 3600 seconds (1 hour).
-//			.flag(Flags.Cache.DONT_CACHE);					// Expressly deny cache-ability.
 	}
 
 	/**
