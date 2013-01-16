@@ -24,13 +24,18 @@
 		</dependency>
 		<dependency>
 			<groupId>com.strategicgains</groupId>
-			<artifactId>PluginExpress</artifactId>
-			<version>0.1.0</version>
+			<artifactId>HyperExpress</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.strategicgains</groupId>
 			<artifactId>Syntaxe</artifactId>
 			<version>0.4.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strategicgains</groupId>
+			<artifactId>PluginExpress</artifactId>
+			<version>0.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

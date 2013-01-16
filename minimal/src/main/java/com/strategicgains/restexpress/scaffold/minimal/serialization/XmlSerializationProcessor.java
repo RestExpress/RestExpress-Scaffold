@@ -1,5 +1,7 @@
 package com.strategicgains.restexpress.scaffold.minimal.serialization;
 
+import com.strategicgains.hyperexpress.domain.Link;
+import com.strategicgains.hyperexpress.domain.LinkableCollection;
 import com.strategicgains.restexpress.serialization.xml.DefaultXmlProcessor;
 
 /**
@@ -14,6 +16,8 @@ extends DefaultXmlProcessor
 	public XmlSerializationProcessor()
     {
 	    super();
+		alias("link", Link.class);
+		alias("collection", LinkableCollection.class);
 //		alias("element_name", Element.class);
 //		alias("element_name", Element.class);
 //		alias("element_name", Element.class);
