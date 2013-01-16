@@ -3,6 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>RestExpress-Minimal-Scaffold</name>
+	<!-- 
+		To run the project: mvn clean package exec:java
+		To create a project deployable assembly:
+			mvn clean package
+			mvn assembly:single
+	 -->
 	<description>A Minimal RestExpress Server</description>
 	<url>https://github.com/RestExpress/RestExpress-Scaffold</url>
 	<groupId>com.strategicgains.archetype</groupId>
@@ -10,19 +16,46 @@
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<parent>
-		<groupId>com.strategicgains.archetype</groupId>
-		<artifactId>restexpress-scaffold-parent</artifactId>
-		<version>0.1-SNAPSHOT</version>
-		<relativePath>..</relativePath>
-	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>com.strategicgains</groupId>
+			<artifactId>RestExpress</artifactId>
+			<version>0.8.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strategicgains</groupId>
+			<artifactId>PluginExpress</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strategicgains</groupId>
+			<artifactId>Syntaxe</artifactId>
+			<version>0.4.3</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<type>jar</type>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<defaultGoal>package</defaultGoal>
-		<sourceDirectory>src/java</sourceDirectory>
-		<testSourceDirectory>test/java</testSourceDirectory>
 
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -44,6 +77,16 @@
 							<mainClass>com.strategicgains.restexpress.scaffold.minimal.Main</mainClass>
 						</manifest>
 					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<descriptors>
+						<descriptor>zip-with-dependencies.xml</descriptor>
+					</descriptors>
 				</configuration>
 			</plugin>
 		</plugins>

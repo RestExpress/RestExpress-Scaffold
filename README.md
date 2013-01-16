@@ -29,3 +29,11 @@ Please note that these projects often utilize a Maven snapshot repository, so pl
    </profile>
 </profiles>
 ```
+
+Generating Archetypes
+=====================
+To generate each archetype, use the ./scripts/create-archetype.sh shell script.  For example:
+```
+cd minimal
+../scripts/create-archetype.sh
+```
