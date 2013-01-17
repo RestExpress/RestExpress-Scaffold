@@ -1,3 +1,3 @@
 #! /bin/bash
 #
-mvn archetype:generate -DarchetypeGroupId=com.strategicgains.archetype -DarchetypeArtifactId=restexpress-scaffold-mongodb -DarchetypeVersion=1.0-SNAPSHOT
+mvn archetype:generate -DarchetypeGroupId=com.strategicgains.archetype -DarchetypeArtifactId=restexpress-scaffold-mongodb -DarchetypeVersion=1.0
