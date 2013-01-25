@@ -3,6 +3,8 @@ RestExpress-Scaffold
 
 Scaffolding projects that are used to generate Maven archetypes for creating new RestExpress projects quickly.
 
+As this projects are used as a template to create the archetypes at https://github.com/RestExpress/RestExpress-Archetype it's better to go there if you want to see them in action and find out how to quickly create a new RestExpress project.
+
 The following project archetypes exist:
 * restexpress-minimal - a minimal RestExpress server with no persistence back-end. Useful for compute-only services or service aggregation.
 * restexpress-mongodb - a full-up project with persistence in MongoDB and asynchronous cascade-delete support via Domain Eventing.
