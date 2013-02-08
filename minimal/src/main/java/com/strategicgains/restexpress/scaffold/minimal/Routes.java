@@ -3,6 +3,7 @@ package com.strategicgains.restexpress.scaffold.minimal;
 import org.jboss.netty.handler.codec.http.HttpMethod;
 
 import com.strategicgains.restexpress.RestExpress;
+import com.strategicgains.restexpress.scaffold.minimal.config.Configuration;
 
 public abstract class Routes
 {

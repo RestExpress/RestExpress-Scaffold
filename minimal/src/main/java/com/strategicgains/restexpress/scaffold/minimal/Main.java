@@ -4,10 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.strategicgains.restexpress.Format;
+import com.strategicgains.restexpress.Parameters;
 import com.strategicgains.restexpress.RestExpress;
 import com.strategicgains.restexpress.exception.BadRequestException;
 import com.strategicgains.restexpress.pipeline.SimpleConsoleLogMessageObserver;
 import com.strategicgains.restexpress.plugin.cache.CacheControlPlugin;
+import com.strategicgains.restexpress.plugin.route.RoutesMetadataPlugin;
+import com.strategicgains.restexpress.scaffold.minimal.config.Configuration;
 import com.strategicgains.restexpress.scaffold.minimal.serialization.ResponseProcessors;
 import com.strategicgains.restexpress.util.Environment;
 import com.strategicgains.syntaxe.ValidationException;
@@ -23,6 +26,7 @@ public class Main
 		    .setName(SERVICE_NAME)
 		    .setBaseUrl(config.getBaseUrl())
 		    .setDefaultFormat(config.getDefaultFormat())
+		    .setExecutorThreadCount(config.getExecutorThreadPoolSize())
 		    .putResponseProcessor(Format.JSON, ResponseProcessors.json())
 		    .putResponseProcessor(Format.XML, ResponseProcessors.xml())
 		    .putResponseProcessor(Format.WRAPPED_JSON, ResponseProcessors.wrappedJson())
@@ -30,6 +34,10 @@ public class Main
 		    .addMessageObserver(new SimpleConsoleLogMessageObserver());
 
 		Routes.define(config, server);
+
+		new RoutesMetadataPlugin()							// Support basic discoverability.
+			.register(server)
+			.parameter(Parameters.Cache.MAX_AGE, 86400);	// Cache for 1 day (24 hours).
 
 		new CacheControlPlugin()							// Support caching headers.
 			.register(server);
