@@ -23,6 +23,7 @@ extends Environment
 	private String defaultFormat;
 	private String baseUrl;
 	private int executorThreadPoolSize;
+	private MetricsConfig metricsSettings;
 
 	private SampleController sampleController;
 
@@ -33,6 +34,7 @@ extends Environment
 		this.defaultFormat = p.getProperty(DEFAULT_FORMAT_PROPERTY, Format.JSON);
 		this.baseUrl = p.getProperty(BASE_URL_PROPERTY, "http://localhost:" + String.valueOf(port));
 		this.executorThreadPoolSize = Integer.parseInt(p.getProperty(EXECUTOR_THREAD_POOL_SIZE, DEFAULT_EXECUTOR_THREAD_POOL_SIZE));
+		this.metricsSettings = new MetricsConfig(p);
 		MongoConfig mongo = new MongoConfig(p);
 		initialize(mongo);
 	}
@@ -63,6 +65,11 @@ extends Environment
 	{
 		return executorThreadPoolSize;
 	}
+
+	public MetricsConfig getMetricsConfig()
+    {
+	    return metricsSettings;
+    }
 
 	public SampleController getSampleController()
 	{
