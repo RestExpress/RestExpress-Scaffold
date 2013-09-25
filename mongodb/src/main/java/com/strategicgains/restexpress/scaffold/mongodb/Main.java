@@ -13,6 +13,7 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.graphite.Graphite;
 import com.codahale.metrics.graphite.GraphiteReporter;
 import com.strategicgains.repoexpress.exception.DuplicateItemException;
+import com.strategicgains.repoexpress.exception.InvalidObjectIdException;
 import com.strategicgains.repoexpress.exception.ItemNotFoundException;
 import com.strategicgains.restexpress.Format;
 import com.strategicgains.restexpress.Parameters;
@@ -26,7 +27,6 @@ import com.strategicgains.restexpress.plugin.metrics.MetricsPlugin;
 import com.strategicgains.restexpress.plugin.route.RoutesMetadataPlugin;
 import com.strategicgains.restexpress.scaffold.mongodb.config.Configuration;
 import com.strategicgains.restexpress.scaffold.mongodb.config.MetricsConfig;
-import com.strategicgains.restexpress.scaffold.mongodb.postprocessor.LastModifiedHeaderPostprocessor;
 import com.strategicgains.restexpress.scaffold.mongodb.serialization.ResponseProcessors;
 import com.strategicgains.restexpress.util.Environment;
 import com.strategicgains.syntaxe.ValidationException;
@@ -36,35 +36,41 @@ public class Main
 	private static final String SERVICE_NAME = "TODO: Enter Service Name";
 	private static final Logger LOG = LoggerFactory.getLogger(SERVICE_NAME);
 
+
 	public static void main(String[] args) throws Exception
+	{
+		RestExpress server = initializeServer(args);
+		server.awaitShutdown();
+	}
+
+	public static RestExpress initializeServer(String[] args) throws IOException
 	{
 		Configuration config = loadEnvironment(args);
 		RestExpress server = new RestExpress()
-		    .setName(SERVICE_NAME)
-		    .setBaseUrl(config.getBaseUrl())
-		    .setDefaultFormat(config.getDefaultFormat())
-		    .setExecutorThreadCount(config.getExecutorThreadPoolSize())
-		    .putResponseProcessor(Format.JSON, ResponseProcessors.json())
-		    .putResponseProcessor(Format.XML, ResponseProcessors.xml())
-		    .putResponseProcessor(Format.WRAPPED_JSON, ResponseProcessors.wrappedJson())
-		    .putResponseProcessor(Format.WRAPPED_XML, ResponseProcessors.wrappedXml())
-		    .addPostprocessor(new LastModifiedHeaderPostprocessor())
-		    .addMessageObserver(new SimpleConsoleLogMessageObserver());
+				.setName(SERVICE_NAME)
+				.setBaseUrl(config.getBaseUrl())
+				.setDefaultFormat(config.getDefaultFormat())
+				.setExecutorThreadCount(config.getExecutorThreadPoolSize())
+				.putResponseProcessor(Format.JSON, ResponseProcessors.json())
+				.putResponseProcessor(Format.XML, ResponseProcessors.xml())
+				.putResponseProcessor(Format.WRAPPED_JSON, ResponseProcessors.wrappedJson())
+				.putResponseProcessor(Format.WRAPPED_XML, ResponseProcessors.wrappedXml())
+				.addMessageObserver(new SimpleConsoleLogMessageObserver());
 
 		Routes.define(config, server);
 		configureMetrics(config, server);
 
 		new RoutesMetadataPlugin()							// Support basic discoverability.
-			.register(server)
-			.parameter(Parameters.Cache.MAX_AGE, 86400);	// Cache for 1 day (24 hours).
+				.register(server)
+				.parameter(Parameters.Cache.MAX_AGE, 86400);	// Cache for 1 day (24 hours).
 
 		new CacheControlPlugin()							// Support caching headers.
-			.register(server);
+				.register(server);
 
 		mapExceptions(server);
 		server.bind(config.getPort());
-		server.awaitShutdown();
-	}
+		return server;
+    }
 
 	private static void configureMetrics(Configuration config, RestExpress server)
     {
@@ -80,7 +86,7 @@ public class Main
 			{
 				final Graphite graphite = new Graphite(new InetSocketAddress(mc.getGraphiteHost(), mc.getGraphitePort()));
 				final GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
-					.prefixedWith("web1.example.com")
+					.prefixedWith(mc.getPrefix())
 					.convertRatesTo(TimeUnit.SECONDS)
 					.convertDurationsTo(TimeUnit.MILLISECONDS)
 					.filter(MetricFilter.ALL)
@@ -103,7 +109,8 @@ public class Main
     	server
 	    	.mapException(ItemNotFoundException.class, NotFoundException.class)
 	    	.mapException(DuplicateItemException.class, ConflictException.class)
-	    	.mapException(ValidationException.class, BadRequestException.class);
+	    	.mapException(ValidationException.class, BadRequestException.class)
+	    	.mapException(InvalidObjectIdException.class, BadRequestException.class);
     }
 
 	private static Configuration loadEnvironment(String[] args)
