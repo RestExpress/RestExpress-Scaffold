@@ -1,18 +1,19 @@
 package com.strategicgains.restexpress.scaffold.mongodb.serialization;
 
-import org.bson.types.ObjectId;
+import java.util.UUID;
+
+import org.restexpress.serialization.json.JacksonJsonProcessor;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.strategicgains.restexpress.serialization.json.DefaultJsonProcessor;
 
 public class JsonSerializationProcessor
-extends DefaultJsonProcessor
+extends JacksonJsonProcessor
 {
 	@Override
     protected void initializeModule(SimpleModule module)
     {
 	    super.initializeModule(module);
-	    module.addDeserializer(ObjectId.class, new ObjectIdDeserializer());
-	    module.addSerializer(ObjectId.class, new ObjectIdSerializer());
+	    module.addDeserializer(UUID.class, new UuidDeserializer());
+	    module.addSerializer(UUID.class, new UuidSerializer());
     }
 }

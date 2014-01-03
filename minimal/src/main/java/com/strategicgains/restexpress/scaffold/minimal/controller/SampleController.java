@@ -1,7 +1,7 @@
 package com.strategicgains.restexpress.scaffold.minimal.controller;
 
-import com.strategicgains.restexpress.Request;
-import com.strategicgains.restexpress.Response;
+import org.restexpress.Request;
+import org.restexpress.Response;
 
 public class SampleController
 {

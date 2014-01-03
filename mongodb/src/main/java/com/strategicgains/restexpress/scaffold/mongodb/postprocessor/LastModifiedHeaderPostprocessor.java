@@ -2,10 +2,11 @@ package com.strategicgains.restexpress.scaffold.mongodb.postprocessor;
 
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.LAST_MODIFIED;
 
+import org.restexpress.Request;
+import org.restexpress.Response;
+import org.restexpress.pipeline.Postprocessor;
+
 import com.strategicgains.repoexpress.domain.Timestamped;
-import com.strategicgains.restexpress.Request;
-import com.strategicgains.restexpress.Response;
-import com.strategicgains.restexpress.pipeline.Postprocessor;
 import com.strategicgains.util.date.DateAdapter;
 import com.strategicgains.util.date.HttpHeaderTimestampAdapter;
 
