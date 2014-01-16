@@ -8,6 +8,7 @@ As this projects are used as a template to create the archetypes at https://gith
 The following project archetypes exist:
 * restexpress-minimal - a minimal RestExpress server with no persistence back-end. Useful for compute-only services or service aggregation.
 * restexpress-mongodb - a full-up project with persistence in MongoDB and asynchronous cascade-delete support via Domain Eventing.
+* restexpress-cassandra - a project with persistence in Cassandra and asynchronous cascade-delete support via Domain Eventing.
 
 Please note that these projects often utilize a Maven snapshot repository, so please include the following in your ~/.m2/settings.xml file:
 ```xml
@@ -36,5 +37,9 @@ cd minimal
 ```
 ```bash
 cd mongodb
+../scripts/create-archetype.sh
+```
+```bash
+cd cassandra
 ../scripts/create-archetype.sh
 ```
