@@ -6,6 +6,10 @@ import org.restexpress.scaffold.cassandra.persistence.SampleUuidEntityRepository
 import com.strategicgains.repoexpress.domain.Identifier;
 import com.strategicgains.syntaxe.ValidationEngine;
 
+/**
+ * This is the 'service' or 'business logic' layer, where business logic, syntactic and semantic
+ * domain validation occurs, along with calls to the persistence layer.
+ */
 public class SampleUuidEntityService
 {
 	private SampleUuidEntityRepository samples;

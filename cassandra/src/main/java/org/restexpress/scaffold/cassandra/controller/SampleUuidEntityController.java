@@ -9,10 +9,16 @@ import org.restexpress.scaffold.cassandra.domain.SampleUuidEntity;
 import org.restexpress.scaffold.cassandra.service.SampleUuidEntityService;
 
 import com.strategicgains.hyperexpress.UrlBuilder;
-import com.strategicgains.repoexpress.domain.Identifier;
+import com.strategicgains.repoexpress.adapter.Identifiers;
 import com.strategicgains.repoexpress.util.UuidConverter;
-import com.strategicgains.syntaxe.ValidationEngine;
 
+/**
+ * This is the 'controller' layer, where HTTP details are converted to domain concepts and passed to the service layer.
+ * Then service layer response information is enhanced with HTTP details, if applicable, for the response.
+ * <p/>
+ * This controller demonstrates how to process a Cassandra entity that is identified by a single, primary row key such
+ * as a UUID.
+ */
 public class SampleUuidEntityController
 {
 	private SampleUuidEntityService service;
@@ -25,9 +31,8 @@ public class SampleUuidEntityController
 
 	public SampleUuidEntity create(Request request, Response response)
 	{
-		SampleUuidEntity sample = request.getBodyAs(SampleUuidEntity.class, "Resource details not provided");
-		ValidationEngine.validateAndThrow(sample);
-		SampleUuidEntity saved = service.create(sample);
+		SampleUuidEntity entity = request.getBodyAs(SampleUuidEntity.class, "Resource details not provided");
+		SampleUuidEntity saved = service.create(entity);
 
 		// Construct the response for create...
 		response.setResponseCreated();
@@ -35,8 +40,10 @@ public class SampleUuidEntityController
 		// Include the Location header...
 		String locationPattern = request.getNamedUrl(HttpMethod.GET, Constants.Routes.SINGLE_UUID_SAMPLE);
 		response.addLocationHeader(new UrlBuilder(locationPattern)
-			.param(Constants.Url.UUID, saved.getUuid().toString())
+			.param(Constants.Url.UUID, saved.getId().toString())
 			.build());
+
+		// enrich the resource with links, etc. here...
 
 		// Return the newly-created resource...
 		return saved;
@@ -45,38 +52,31 @@ public class SampleUuidEntityController
 	public SampleUuidEntity read(Request request, Response response)
 	{
 		String id = request.getHeader(Constants.Url.UUID, "No resource ID supplied");
-		SampleUuidEntity sample = service.read(new Identifier(UuidConverter.parse(id)));
-		addSelfLink(request, sample);
-		return sample;
+		SampleUuidEntity entity = service.read(Identifiers.UUID.parse(id));
+
+		// enrich the entity with links, etc. here...
+
+		return entity;
 	}
 
 	public void update(Request request, Response response)
 	{
 		String id = request.getHeader(Constants.Url.UUID, "No resource ID supplied");
-		SampleUuidEntity sample = request.getBodyAs(SampleUuidEntity.class, "Resource details not provided");
+		SampleUuidEntity entity = request.getBodyAs(SampleUuidEntity.class, "Resource details not provided");
 		
-		if (!UuidConverter.parse(id).equals(sample.getUuid()))
+		if (!UuidConverter.parse(id).equals(entity.getId()))
 		{
 			throw new BadRequestException("ID in URL and ID in resource body must match");
 		}
 
-		service.update(sample);
+		service.update(entity);
 		response.setResponseNoContent();
 	}
 
 	public void delete(Request request, Response response)
 	{
 		String id = request.getHeader(Constants.Url.UUID, "No resource ID supplied");
-		service.delete(new Identifier(UuidConverter.parse(id)));
+		service.delete(Identifiers.UUID.parse(id));
 		response.setResponseNoContent();
 	}
-
-	private void addSelfLink(Request request, SampleUuidEntity sample)
-    {
-//	    String selfPattern = request.getNamedUrl(HttpMethod.GET, Constants.Routes.SINGLE_SAMPLE);
-//		LinkDefinition selfLink = new HalLinkBuilder(selfPattern)
-//			.urlParam(Constants.Url.UUID, sample.getUuid().toString())
-//			.build();
-//		sample.linkTo(RelTypes.SELF, selfLink);
-    }
 }

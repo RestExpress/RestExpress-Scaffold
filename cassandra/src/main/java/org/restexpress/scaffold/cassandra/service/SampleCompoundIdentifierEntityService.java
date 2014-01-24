@@ -8,6 +8,10 @@ import org.restexpress.scaffold.cassandra.persistence.SampleCompoundIdentifierEn
 import com.strategicgains.repoexpress.domain.Identifier;
 import com.strategicgains.syntaxe.ValidationEngine;
 
+/**
+ * This is the 'service' or 'business logic' layer, where business logic, syntactic and semantic
+ * domain validation occurs, along with calls to the persistence layer.
+ */
 public class SampleCompoundIdentifierEntityService
 {
 	private SampleCompoundIdentifierEntityRepository samples;
@@ -24,9 +28,9 @@ public class SampleCompoundIdentifierEntityService
 		return samples.create(definition);
 	}
 
-	public SampleCompoundIdentifierEntity read(String context, String nodeType, String relType)
+	public SampleCompoundIdentifierEntity read(Identifier id)
     {
-		return samples.read(new Identifier(context, nodeType, relType));
+		return samples.read(id);
     }
 
 	public void update(SampleCompoundIdentifierEntity definition)
@@ -35,9 +39,9 @@ public class SampleCompoundIdentifierEntityService
 		samples.update(definition);
     }
 
-	public void delete(String context, String nodeType, String relType)
+	public void delete(Identifier identifier)
     {
-		samples.delete(new Identifier(context, nodeType, relType));
+		samples.delete(identifier);
     }
 
 	public List<SampleCompoundIdentifierEntity> readAll(String context, String nodeType)
