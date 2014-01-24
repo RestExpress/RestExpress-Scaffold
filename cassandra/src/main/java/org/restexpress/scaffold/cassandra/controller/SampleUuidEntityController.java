@@ -64,7 +64,7 @@ public class SampleUuidEntityController
 		String id = request.getHeader(Constants.Url.UUID, "No resource ID supplied");
 		SampleUuidEntity entity = request.getBodyAs(SampleUuidEntity.class, "Resource details not provided");
 		
-		if (!UuidConverter.parse(id).equals(entity.getId()))
+		if (!Identifiers.UUID.parse(id).equals(entity.getId()))
 		{
 			throw new BadRequestException("ID in URL and ID in resource body must match");
 		}
