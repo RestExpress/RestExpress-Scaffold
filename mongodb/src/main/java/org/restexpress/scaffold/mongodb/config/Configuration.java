@@ -3,12 +3,15 @@ package org.restexpress.scaffold.mongodb.config;
 import java.util.Properties;
 
 import org.restexpress.RestExpress;
-import org.restexpress.scaffold.mongodb.controller.SampleController;
-import org.restexpress.scaffold.mongodb.domain.Sample;
+import org.restexpress.scaffold.mongodb.controller.SampleOidEntityController;
+import org.restexpress.scaffold.mongodb.controller.SampleUuidEntityController;
+import org.restexpress.scaffold.mongodb.persistence.SampleOidEntityRepository;
+import org.restexpress.scaffold.mongodb.persistence.SampleUuidEntityRepository;
+import org.restexpress.scaffold.mongodb.service.SampleOidEntityService;
+import org.restexpress.scaffold.mongodb.service.SampleUuidEntityService;
 import org.restexpress.util.Environment;
 
 import com.strategicgains.repoexpress.mongodb.MongoConfig;
-import com.strategicgains.repoexpress.mongodb.MongodbUuidEntityRepository;
 
 public class Configuration
 extends Environment
@@ -24,7 +27,8 @@ extends Environment
 	private int executorThreadPoolSize;
 	private MetricsConfig metricsSettings;
 
-	private SampleController sampleController;
+	private SampleUuidEntityController sampleUuidController;
+	private SampleOidEntityController sampleOidController;
 
 	@Override
 	protected void fillValues(Properties p)
@@ -39,9 +43,13 @@ extends Environment
 
 	private void initialize(MongoConfig mongo)
 	{
-		@SuppressWarnings("unchecked")
-        MongodbUuidEntityRepository<Sample> sampleRepository = new MongodbUuidEntityRepository<Sample>(mongo.getClient(), mongo.getDbName(), Sample.class);
-		sampleController = new SampleController(sampleRepository);
+        SampleUuidEntityRepository samplesUuidRepository = new SampleUuidEntityRepository(mongo.getClient(), mongo.getDbName());
+		SampleUuidEntityService sampleUuidService = new SampleUuidEntityService(samplesUuidRepository);
+		sampleUuidController = new SampleUuidEntityController(sampleUuidService);
+
+		SampleOidEntityRepository samplesOidRepository = new SampleOidEntityRepository(mongo.getClient(), mongo.getDbName());
+		SampleOidEntityService sampleOidService = new SampleOidEntityService(samplesOidRepository);
+		sampleOidController = new SampleOidEntityController(sampleOidService);
 	}
 
 	public int getPort()
@@ -64,8 +72,13 @@ extends Environment
 	    return metricsSettings;
     }
 
-	public SampleController getSampleController()
+	public SampleUuidEntityController getSampleUuidEntityController()
 	{
-		return sampleController;
+		return sampleUuidController;
+	}
+
+	public SampleOidEntityController getSampleOidEntityController()
+	{
+		return sampleOidController;
 	}
 }

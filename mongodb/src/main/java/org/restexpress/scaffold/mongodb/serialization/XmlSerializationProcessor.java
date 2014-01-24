@@ -1,6 +1,6 @@
 package org.restexpress.scaffold.mongodb.serialization;
 
-import org.restexpress.scaffold.mongodb.domain.Sample;
+import org.restexpress.scaffold.mongodb.domain.SampleUuidEntity;
 import org.serialization.xml.XstreamXmlProcessor;
 
 import com.strategicgains.hyperexpress.domain.Link;
@@ -12,7 +12,7 @@ extends XstreamXmlProcessor
 	public XmlSerializationProcessor()
     {
 	    super();
-	    alias("sample", Sample.class);
+	    alias("sample", SampleUuidEntity.class);
 		alias("link", Link.class);
 		alias("collection", LinkableCollection.class);
 //		alias("element_name", Element.class);
