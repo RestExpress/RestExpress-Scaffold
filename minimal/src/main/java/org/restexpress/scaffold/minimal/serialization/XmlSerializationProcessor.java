@@ -1,6 +1,6 @@
 package org.restexpress.scaffold.minimal.serialization;
 
-import org.serialization.xml.XstreamXmlProcessor;
+import org.restexpress.serialization.xml.XstreamXmlProcessor;
 
 import com.strategicgains.hyperexpress.domain.Link;
 import com.strategicgains.hyperexpress.domain.LinkableCollection;

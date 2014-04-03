@@ -1,7 +1,7 @@
 package org.restexpress.scaffold.mongodb.serialization;
 
 import org.restexpress.scaffold.mongodb.domain.SampleUuidEntity;
-import org.serialization.xml.XstreamXmlProcessor;
+import org.restexpress.serialization.xml.XstreamXmlProcessor;
 
 public class XmlSerializationProcessor
 extends XstreamXmlProcessor
