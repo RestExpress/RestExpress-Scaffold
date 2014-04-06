@@ -2,7 +2,6 @@
 #
 rm -rf .settings/
 mvn clean eclipse:clean archetype:create-from-project -Darchetype.properties=./archetype.properties
-mvn eclipse:eclipse
 
 sed -i .orig 's/org.restexpress.scaffold.cassandra/${package}/g' ./target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml
 sed -i .orig 's/org.restexpress.scaffold.minimal/${package}/g' ./target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml
