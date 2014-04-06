@@ -13,10 +13,10 @@ public abstract class Routes
 			.method(HttpMethod.GET, HttpMethod.PUT, HttpMethod.DELETE)
 			.name(Constants.Routes.SINGLE_SAMPLE);
 
-//		server.uri("/your/collection/route/here.{format}", config.getSampleController())
-//			.action("readAll", HttpMethod.GET)
-//			.method(HttpMethod.POST)
-//			.name(Constants.Routes.SAMPLE_COLLECTION);
+		server.uri("/your/route/here.{format}", config.getSampleController())
+			.action("readAll", HttpMethod.GET)
+			.method(HttpMethod.POST)
+			.name(Constants.Routes.SAMPLE_COLLECTION);
 // or...
 //		server.regex("/some.regex", config.getRouteController());
     }

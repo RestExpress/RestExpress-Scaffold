@@ -6,6 +6,8 @@ import org.restexpress.RestExpress;
 import org.restexpress.scaffold.minimal.controller.SampleController;
 import org.restexpress.util.Environment;
 
+import com.strategicgains.restexpress.plugin.metrics.MetricsConfig;
+
 public class Configuration
 extends Environment
 {

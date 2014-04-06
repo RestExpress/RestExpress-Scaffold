@@ -12,6 +12,7 @@ import org.restexpress.scaffold.cassandra.service.SampleUuidEntityService;
 import org.restexpress.util.Environment;
 
 import com.strategicgains.repoexpress.cassandra.CassandraConfig;
+import com.strategicgains.restexpress.plugin.metrics.MetricsConfig;
 
 public class Configuration
 extends Environment
