@@ -64,6 +64,7 @@ public class Main
 				.addMessageObserver(new SimpleConsoleLogMessageObserver());
 
 		Routes.define(config, server);
+		Relationships.define(server);
 		configurePlugins(config, server);
 		mapExceptions(server);
 		server.bind(config.getPort());
