@@ -1,11 +1,14 @@
 package org.restexpress.scaffold.cassandra.domain;
 
+import org.restexpress.plugin.hyperexpress.Linkable;
+
 import com.strategicgains.repoexpress.domain.AbstractTimestampedIdentifiable;
 import com.strategicgains.repoexpress.domain.Identifier;
 import com.strategicgains.syntaxe.annotation.Required;
 
 public class SampleCompoundIdentifierEntity
 extends AbstractTimestampedIdentifiable
+implements Linkable
 {
 	@Required
 	private String key1;

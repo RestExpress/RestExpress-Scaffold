@@ -16,17 +16,6 @@ public abstract class Relationships
 		Map<String, String> routes = server.getRouteUrlsByName();
 
 		HyperExpress.relationships()
-		.forCollectionOf(SampleUuidEntity.class)
-			.rel(RelTypes.SELF, routes.get(Constants.Routes.SAMPLE_UUID_COLLECTION))
-				.withQuery("limit={limit}")
-				.withQuery("offset={offset}")
-			.rel(RelTypes.NEXT, routes.get(Constants.Routes.SAMPLE_UUID_COLLECTION) + "?offset={nextOffset}")
-				.withQuery("limit={limit}")
-				.optional()
-			.rel(RelTypes.PREV, routes.get(Constants.Routes.SAMPLE_UUID_COLLECTION) + "?offset={prevOffset}")
-				.withQuery("limit={limit}")
-				.optional()
-
 		.forClass(SampleUuidEntity.class)
 			.rel(RelTypes.SELF, routes.get(Constants.Routes.SINGLE_UUID_SAMPLE))
 			.rel(RelTypes.UP, routes.get(Constants.Routes.SAMPLE_UUID_COLLECTION))
