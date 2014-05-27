@@ -1,5 +1,7 @@
 package org.restexpress.scaffold.mongodb.domain;
 
+import org.restexpress.plugin.hyperexpress.Linkable;
+
 import com.strategicgains.repoexpress.mongodb.AbstractUuidMongodbEntity;
 
 /**
@@ -9,6 +11,7 @@ import com.strategicgains.repoexpress.mongodb.AbstractUuidMongodbEntity;
  */
 public class SampleUuidEntity
 extends AbstractUuidMongodbEntity
+implements Linkable
 {
 	public SampleUuidEntity()
 	{
