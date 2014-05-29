@@ -36,11 +36,6 @@
 			<version>0.4.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.strategicgains.domain-eventing</groupId>
-			<artifactId>domain-eventing-core</artifactId>
-			<version>0.4.3</version>
-		</dependency>
-		<dependency>
 			<groupId>com.strategicgains.plugin-express</groupId>
 			<artifactId>HyperExpressPlugin</artifactId>
 			<version>0.2.2</version>
