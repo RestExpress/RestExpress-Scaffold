@@ -46,13 +46,12 @@ public class SampleUuidEntityController
 		// Construct the response for create...
 		response.setResponseCreated();
 
+		// Bind the resource with link URL tokens, etc. here...
+		TokenResolver resolver = HyperExpress.bind(Constants.Url.SAMPLE_ID, Identifiers.UUID.format(saved.getUuid()));
+
 		// Include the Location header...
 		String locationPattern = request.getNamedUrl(HttpMethod.GET, Constants.Routes.SINGLE_UUID_SAMPLE);
-		response.addLocationHeader(LOCATION_BUILDER.build(locationPattern, new TokenResolver()
-			.bind(Constants.Url.SAMPLE_ID, Identifiers.UUID.format(saved.getUuid()))));
-
-		// Bind the resource with link URL tokens, etc. here...
-		HyperExpress.bind(Constants.Url.SAMPLE_ID, Identifiers.UUID.format(saved.getUuid()));
+		response.addLocationHeader(LOCATION_BUILDER.build(locationPattern, resolver));
 
 		// Return the newly-created resource...
 		return saved;
@@ -78,12 +77,11 @@ public class SampleUuidEntityController
 		response.setCollectionResponse(range, entities.size(), count);
 
 		// Bind the resources in the collection with link URL tokens, etc. here...
-		HyperExpress.tokenBinder(new TokenBinder()
+		HyperExpress.tokenBinder(new TokenBinder<SampleUuidEntity>()
 		{
 			@Override
-			public void bind(Object object, TokenResolver resolver)
+			public void bind(SampleUuidEntity entity, TokenResolver resolver)
 			{
-				SampleUuidEntity entity = (SampleUuidEntity) object;
 				resolver.bind(Constants.Url.SAMPLE_ID, Identifiers.UUID.format(entity.getUuid()));
 			}
 		});
