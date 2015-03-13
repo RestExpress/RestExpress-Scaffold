@@ -1,6 +1,6 @@
 package org.restexpress.scaffold.cassandra;
 
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.*;
+import static io.netty.handler.codec.http.HttpHeaders.Names.*;
 import static org.restexpress.Flags.Auth.PUBLIC_ROUTE;
 
 import java.io.FileNotFoundException;

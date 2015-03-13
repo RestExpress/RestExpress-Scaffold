@@ -1,6 +1,6 @@
 package org.restexpress.scaffold.cassandra.controller;
 
-import org.jboss.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpMethod;
 import org.restexpress.Request;
 import org.restexpress.Response;
 import org.restexpress.scaffold.cassandra.Constants;

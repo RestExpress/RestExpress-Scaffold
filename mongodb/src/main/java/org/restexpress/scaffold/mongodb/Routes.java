@@ -1,6 +1,6 @@
 package org.restexpress.scaffold.mongodb;
 
-import org.jboss.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpMethod;
 import org.restexpress.RestExpress;
 import org.restexpress.scaffold.mongodb.config.Configuration;
 
