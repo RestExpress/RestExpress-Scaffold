@@ -3,8 +3,8 @@ package org.restexpress.scaffold.cassandra;
 import java.util.Map;
 
 import org.restexpress.RestExpress;
-import org.restexpress.scaffold.cassandra.domain.SampleCompoundIdentifierEntity;
-import org.restexpress.scaffold.cassandra.domain.SampleUuidEntity;
+import org.restexpress.scaffold.cassandra.compoundid.SampleCompoundIdentifierEntity;
+import org.restexpress.scaffold.cassandra.uuid.SampleUuidEntity;
 
 import com.strategicgains.hyperexpress.HyperExpress;
 import com.strategicgains.hyperexpress.RelTypes;

@@ -1,19 +1,15 @@
-package org.restexpress.scaffold.minimal;
+package org.restexpress.scaffold.base;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.restexpress.RestExpress;
 import org.restexpress.pipeline.SimpleConsoleLogMessageObserver;
-import org.restexpress.scaffold.minimal.serialization.SerializationProvider;
+import org.restexpress.scaffold.base.serialization.SerializationProvider;
 import org.restexpress.util.Environment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Main
 {
-	private static final String SERVICE_NAME = "TODO: Enter Service Name";
-	private static final Logger LOG = LoggerFactory.getLogger(SERVICE_NAME);
+	private static final String SERVICE_NAME = "${artifactId}";
 
 	public static void main(String[] args) throws Exception
 	{
@@ -24,27 +20,16 @@ public class Main
 	public static RestExpress initializeServer(String[] args) throws IOException
 	{
 		RestExpress.setSerializationProvider(new SerializationProvider());
-
-		Configuration config = loadEnvironment(args);
+		Configuration config = Environment.load(args, Configuration.class);
 		RestExpress server = new RestExpress()
 				.setName(SERVICE_NAME)
 				.setBaseUrl(config.getBaseUrl())
 				.setExecutorThreadCount(config.getExecutorThreadPoolSize())
 				.addMessageObserver(new SimpleConsoleLogMessageObserver());
 
-		Routes.define(config, server);
+		// Define some routes here.
+
 		server.bind(config.getPort());
 		return server;
-    }
-
-	private static Configuration loadEnvironment(String[] args)
-    throws FileNotFoundException, IOException
-    {
-	    if (args.length > 0)
-		{
-			return Environment.from(args[0], Configuration.class);
-		}
-
-	    return Environment.fromDefault(Configuration.class);
     }
 }

@@ -16,7 +16,6 @@ import org.restexpress.exception.NotFoundException;
 import org.restexpress.pipeline.SimpleConsoleLogMessageObserver;
 import org.restexpress.plugin.hyperexpress.HyperExpressPlugin;
 import org.restexpress.plugin.hyperexpress.Linkable;
-import org.restexpress.scaffold.cassandra.config.Configuration;
 import org.restexpress.scaffold.cassandra.serialization.SerializationProvider;
 import org.restexpress.util.Environment;
 import org.slf4j.Logger;
@@ -38,7 +37,7 @@ import com.strategicgains.syntaxe.ValidationException;
 
 public class Main
 {
-	private static final String SERVICE_NAME = "TODO: Enter Service Name";
+	private static final String SERVICE_NAME = "${artifactId}";
 	private static final Logger LOG = LoggerFactory.getLogger(SERVICE_NAME);
 
 

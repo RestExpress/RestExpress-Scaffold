@@ -1,8 +1,8 @@
 package org.restexpress.scaffold.cassandra;
 
 import io.netty.handler.codec.http.HttpMethod;
+
 import org.restexpress.RestExpress;
-import org.restexpress.scaffold.cassandra.config.Configuration;
 
 public abstract class Routes
 {

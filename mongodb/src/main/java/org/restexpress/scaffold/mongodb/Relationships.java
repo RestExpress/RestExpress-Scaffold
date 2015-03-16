@@ -3,8 +3,8 @@ package org.restexpress.scaffold.mongodb;
 import java.util.Map;
 
 import org.restexpress.RestExpress;
-import org.restexpress.scaffold.mongodb.domain.SampleOidEntity;
-import org.restexpress.scaffold.mongodb.domain.SampleUuidEntity;
+import org.restexpress.scaffold.mongodb.objectid.SampleOidEntity;
+import org.restexpress.scaffold.mongodb.uuid.SampleUuidEntity;
 
 import com.strategicgains.hyperexpress.HyperExpress;
 import com.strategicgains.hyperexpress.RelTypes;

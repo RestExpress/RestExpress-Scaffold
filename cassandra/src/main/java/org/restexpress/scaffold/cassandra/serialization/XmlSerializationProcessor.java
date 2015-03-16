@@ -1,6 +1,6 @@
 package org.restexpress.scaffold.cassandra.serialization;
 
-import org.restexpress.scaffold.cassandra.domain.SampleUuidEntity;
+import org.restexpress.scaffold.cassandra.uuid.SampleUuidEntity;
 import org.restexpress.serialization.xml.XstreamXmlProcessor;
 
 public class XmlSerializationProcessor
