@@ -37,7 +37,7 @@ import com.strategicgains.syntaxe.ValidationException;
 
 public class Main
 {
-	private static final String SERVICE_NAME = "${artifactId}";
+	private static final String SERVICE_NAME = "TODO: Enter service name";
 	private static final Logger LOG = LoggerFactory.getLogger(SERVICE_NAME);
 
 

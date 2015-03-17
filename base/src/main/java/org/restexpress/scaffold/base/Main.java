@@ -9,7 +9,7 @@ import org.restexpress.util.Environment;
 
 public class Main
 {
-	private static final String SERVICE_NAME = "${artifactId}";
+	private static final String SERVICE_NAME = "TODO: Enter service name";
 
 	public static void main(String[] args) throws Exception
 	{
