@@ -1,6 +1,5 @@
 package org.restexpress.scaffold.minimal;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.restexpress.RestExpress;
@@ -22,7 +21,7 @@ public class Main
 	{
 		RestExpress.setSerializationProvider(new SerializationProvider());
 
-		Configuration config = loadEnvironment(args);
+		Configuration config = Environment.load(args, Configuration.class);
 		RestExpress server = new RestExpress()
 				.setName(SERVICE_NAME)
 				.setBaseUrl(config.getBaseUrl())
@@ -32,16 +31,5 @@ public class Main
 		Routes.define(config, server);
 		server.bind(config.getPort());
 		return server;
-    }
-
-	private static Configuration loadEnvironment(String[] args)
-    throws FileNotFoundException, IOException
-    {
-	    if (args.length > 0)
-		{
-			return Environment.from(args[0], Configuration.class);
-		}
-
-	    return Environment.fromDefault(Configuration.class);
     }
 }
