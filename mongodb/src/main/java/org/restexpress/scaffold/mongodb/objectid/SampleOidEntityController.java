@@ -1,8 +1,8 @@
 package org.restexpress.scaffold.mongodb.objectid;
 
-import java.util.List;
-
 import io.netty.handler.codec.http.HttpMethod;
+
+import java.util.List;
 
 import org.restexpress.Request;
 import org.restexpress.Response;
@@ -15,6 +15,7 @@ import org.restexpress.query.QueryRanges;
 import org.restexpress.scaffold.mongodb.Constants;
 
 import com.strategicgains.hyperexpress.HyperExpress;
+import com.strategicgains.hyperexpress.builder.DefaultUrlBuilder;
 import com.strategicgains.hyperexpress.builder.TokenBinder;
 import com.strategicgains.hyperexpress.builder.TokenResolver;
 import com.strategicgains.hyperexpress.builder.UrlBuilder;
@@ -28,7 +29,7 @@ import com.strategicgains.repoexpress.mongodb.Identifiers;
  */
 public class SampleOidEntityController
 {
-	private static final UrlBuilder LOCATION_BUILDER = new UrlBuilder();
+	private static final UrlBuilder LOCATION_BUILDER = new DefaultUrlBuilder();
 	private SampleOidEntityService service;
 
 	public SampleOidEntityController(SampleOidEntityService sampleService)

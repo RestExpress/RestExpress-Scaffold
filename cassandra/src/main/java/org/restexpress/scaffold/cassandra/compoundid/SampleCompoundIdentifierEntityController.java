@@ -1,8 +1,8 @@
 package org.restexpress.scaffold.cassandra.compoundid;
 
-import java.util.List;
-
 import io.netty.handler.codec.http.HttpMethod;
+
+import java.util.List;
 
 import org.restexpress.Request;
 import org.restexpress.Response;
@@ -12,6 +12,7 @@ import org.restexpress.query.QueryRanges;
 import org.restexpress.scaffold.cassandra.Constants;
 
 import com.strategicgains.hyperexpress.HyperExpress;
+import com.strategicgains.hyperexpress.builder.DefaultUrlBuilder;
 import com.strategicgains.hyperexpress.builder.TokenBinder;
 import com.strategicgains.hyperexpress.builder.TokenResolver;
 import com.strategicgains.hyperexpress.builder.UrlBuilder;
@@ -26,7 +27,7 @@ import com.strategicgains.repoexpress.domain.Identifier;
  */
 public class SampleCompoundIdentifierEntityController
 {
-	private static final UrlBuilder LOCATION_BUILDER = new UrlBuilder();
+	private static final UrlBuilder LOCATION_BUILDER = new DefaultUrlBuilder();
 	private SampleCompoundIdentifierEntityService service;
 	
 	public SampleCompoundIdentifierEntityController(SampleCompoundIdentifierEntityService service)

@@ -7,6 +7,7 @@ import org.restexpress.Response;
 import org.restexpress.scaffold.cassandra.Constants;
 
 import com.strategicgains.hyperexpress.HyperExpress;
+import com.strategicgains.hyperexpress.builder.DefaultUrlBuilder;
 import com.strategicgains.hyperexpress.builder.TokenResolver;
 import com.strategicgains.hyperexpress.builder.UrlBuilder;
 import com.strategicgains.repoexpress.adapter.Identifiers;
@@ -21,7 +22,7 @@ import com.strategicgains.repoexpress.util.UuidConverter;
  */
 public class SampleUuidEntityController
 {
-	private static final UrlBuilder LOCATION_BUILDER = new UrlBuilder();
+	private static final UrlBuilder LOCATION_BUILDER = new DefaultUrlBuilder();
 	private SampleUuidEntityService service;
 	
 	public SampleUuidEntityController(SampleUuidEntityService sampleService)
