@@ -3,6 +3,7 @@ package org.restexpress.scaffold.cassandra;
 import java.util.Map;
 
 import org.restexpress.RestExpress;
+import org.restexpress.common.exception.ConfigurationException;
 import org.restexpress.scaffold.cassandra.compoundid.SampleCompoundIdentifierEntity;
 import org.restexpress.scaffold.cassandra.uuid.SampleUuidEntity;
 
@@ -40,7 +41,7 @@ public abstract class Relationships
 
 	private static String href(String name)
 	{
-		String href = href(name);
+		String href = ROUTES.get(name);
 		if (href == null) throw new ConfigurationException("Route name not found: " + name);
 		return href;
 	}
