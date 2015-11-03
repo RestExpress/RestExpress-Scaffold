@@ -14,9 +14,10 @@ public class Server
 
 	public Server(Configuration config)
 	{
+		this.config = config;
 		RestExpress.setDefaultSerializationProvider(new SerializationProvider());
 
-		RestExpress server = new RestExpress()
+		this.server = new RestExpress()
 				.setName(SERVICE_NAME)
 				.setBaseUrl(config.getBaseUrl())
 				.setExecutorThreadCount(config.getExecutorThreadPoolSize())
