@@ -1,7 +1,5 @@
 package org.restexpress.scaffold.mongodb.objectid;
 
-import io.netty.handler.codec.http.HttpMethod;
-
 import java.util.List;
 
 import org.restexpress.Request;
@@ -14,12 +12,12 @@ import org.restexpress.query.QueryOrders;
 import org.restexpress.query.QueryRanges;
 import org.restexpress.scaffold.mongodb.Constants;
 
-import com.strategicgains.hyperexpress.HyperExpress;
+import com.strategicgains.hyperexpress.builder.DefaultTokenResolver;
 import com.strategicgains.hyperexpress.builder.DefaultUrlBuilder;
-import com.strategicgains.hyperexpress.builder.TokenBinder;
-import com.strategicgains.hyperexpress.builder.TokenResolver;
 import com.strategicgains.hyperexpress.builder.UrlBuilder;
 import com.strategicgains.repoexpress.mongodb.Identifiers;
+
+import io.netty.handler.codec.http.HttpMethod;
 
 /**
  * This is the 'controller' layer, where HTTP details are converted to domain concepts and passed to the service layer.
@@ -46,12 +44,9 @@ public class SampleOidEntityController
 		// Construct the response for create...
 		response.setResponseCreated();
 
-		// Bind the resource with link URL tokens, etc. here...
-		TokenResolver resolver = HyperExpress.bind(Constants.Url.SAMPLE_ID, Identifiers.MONGOID.format(saved.getId()));
-
 		// Include the Location header...
 		String locationPattern = request.getNamedUrl(HttpMethod.GET, Constants.Routes.SINGLE_OID_SAMPLE);
-		response.addLocationHeader(LOCATION_BUILDER.build(locationPattern, resolver));
+		response.addLocationHeader(LOCATION_BUILDER.build(locationPattern, new DefaultTokenResolver()));
 
 		// Return the newly-created resource...
 		return saved;
@@ -61,9 +56,6 @@ public class SampleOidEntityController
 	{
 		String id = request.getHeader(Constants.Url.SAMPLE_ID, "No resource ID supplied");
 		SampleOidEntity entity = service.read(Identifiers.MONGOID.parse(id));
-
-		// enrich the resource with links, etc. here...
-		HyperExpress.bind(Constants.Url.SAMPLE_ID, Identifiers.MONGOID.format(entity.getId()));
 
 		return entity;
 	}
@@ -76,17 +68,6 @@ public class SampleOidEntityController
 		List<SampleOidEntity> entities = service.readAll(filter, range, order);
 		long count = service.count(filter);
 		response.setCollectionResponse(range, entities.size(), count);
-
-		// Bind the resources in the collection with link URL tokens, etc. here...
-		HyperExpress.tokenBinder(new TokenBinder<SampleOidEntity>()
-		{
-			@Override
-			public void bind(SampleOidEntity entity, TokenResolver resolver)
-			{
-				resolver.bind(Constants.Url.SAMPLE_ID, Identifiers.MONGOID.format(entity.getId()));
-			}
-		});
-
 		return entities;
 	}
 

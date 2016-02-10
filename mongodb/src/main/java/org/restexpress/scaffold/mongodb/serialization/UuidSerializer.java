@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.strategicgains.repoexpress.util.UuidConverter;
 
 public class UuidSerializer
 extends JsonSerializer<UUID>
@@ -15,6 +16,6 @@ extends JsonSerializer<UUID>
 	public void serialize(UUID objectId, JsonGenerator json, SerializerProvider provider)
 	throws IOException, JsonProcessingException
 	{
-		json.writeString(objectId.toString());
+		json.writeString(UuidConverter.format(objectId));
 	}
 }
