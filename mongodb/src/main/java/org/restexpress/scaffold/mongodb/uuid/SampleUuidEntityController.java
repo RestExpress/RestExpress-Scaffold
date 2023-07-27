@@ -12,6 +12,7 @@ import org.restexpress.query.QueryOrders;
 import org.restexpress.query.QueryRanges;
 import org.restexpress.scaffold.mongodb.Constants;
 
+import com.strategicgains.hyperexpress.HyperExpress;
 import com.strategicgains.hyperexpress.builder.DefaultTokenResolver;
 import com.strategicgains.hyperexpress.builder.DefaultUrlBuilder;
 import com.strategicgains.hyperexpress.builder.UrlBuilder;
@@ -27,7 +28,10 @@ import io.netty.handler.codec.http.HttpMethod;
  */
 public class SampleUuidEntityController
 {
+	private static final String RESOURCE_ID_NOT_PROVIDED = "No resource ID supplied";
+	private static final String BODY_NOT_PROVIDED = "Resource details not provided";
 	private static final UrlBuilder LOCATION_BUILDER = new DefaultUrlBuilder();
+
 	private SampleUuidEntityService service;
 
 	public SampleUuidEntityController(SampleUuidEntityService sampleService)
@@ -38,7 +42,7 @@ public class SampleUuidEntityController
 
 	public SampleUuidEntity create(Request request, Response response)
 	{
-		SampleUuidEntity entity = request.getBodyAs(SampleUuidEntity.class, "Resource details not provided");
+		SampleUuidEntity entity = request.getBodyAs(SampleUuidEntity.class, BODY_NOT_PROVIDED);
 		SampleUuidEntity saved = service.create(entity);
 
 		// Construct the response for create...
@@ -46,7 +50,7 @@ public class SampleUuidEntityController
 
 		// Include the Location header...
 		String locationPattern = request.getNamedUrl(HttpMethod.GET, Constants.Routes.SINGLE_UUID_SAMPLE);
-		response.addLocationHeader(LOCATION_BUILDER.build(locationPattern, new DefaultTokenResolver()));
+		response.addLocationHeader(LOCATION_BUILDER.build(locationPattern, HyperExpress.tokenResolver()));
 
 		// Return the newly-created resource...
 		return saved;
@@ -54,7 +58,7 @@ public class SampleUuidEntityController
 
 	public SampleUuidEntity read(Request request, Response response)
 	{
-		String id = request.getHeader(Constants.Url.SAMPLE_ID, "No resource ID supplied");
+		String id = request.getHeader(Constants.Url.SAMPLE_ID, RESOURCE_ID_NOT_PROVIDED);
 		SampleUuidEntity entity = service.read(Identifiers.UUID.parse(id));
 		return entity;
 	}
@@ -72,8 +76,8 @@ public class SampleUuidEntityController
 
 	public void update(Request request, Response response)
 	{
-		String id = request.getHeader(Constants.Url.SAMPLE_ID, "No resource ID supplied");
-		SampleUuidEntity entity = request.getBodyAs(SampleUuidEntity.class, "Resource details not provided");
+		String id = request.getHeader(Constants.Url.SAMPLE_ID, RESOURCE_ID_NOT_PROVIDED);
+		SampleUuidEntity entity = request.getBodyAs(SampleUuidEntity.class, BODY_NOT_PROVIDED);
 		entity.setId(Identifiers.UUID.parse(id));
 		service.update(entity);
 		response.setResponseNoContent();
@@ -81,7 +85,7 @@ public class SampleUuidEntityController
 
 	public void delete(Request request, Response response)
 	{
-		String id = request.getHeader(Constants.Url.SAMPLE_ID, "No resource ID supplied");
+		String id = request.getHeader(Constants.Url.SAMPLE_ID, RESOURCE_ID_NOT_PROVIDED);
 		service.delete(Identifiers.UUID.parse(id));
 		response.setResponseNoContent();
 	}
